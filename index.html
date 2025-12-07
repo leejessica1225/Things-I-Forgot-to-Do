@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Things I Forgot to Do</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      margin-bottom: 40px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 80px);
+      grid-gap: 15px;
+    }
+    .box {
+      width: 80px;
+      height: 80px;
+      border: 2px solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: black;
+      font-size: 20px;
+    }
+    .box:hover {
+      background: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <a href="page2.html" style="text-decoration:none; color:black;">
+    <h1>Things I Forgot to Do</h1>
+  </a>
+
+  <div class="grid">
+    <a class="box" href="#">1</a>
+    <a class="box" href="#">2</a>
+    <a class="box" href="#">3</a>
+    <a class="box" href="#">4</a>
+    <a class="box" href="#">5</a>
+    <a class="box" href="#">6</a>
+    <a class="box" href="#">7</a>
+    <a class="box" href="#">8</a>
+    <a class="box" href="#">9</a>
+    <a class="box" href="#">10</a>
+  </div>
+</body>
+</html>
