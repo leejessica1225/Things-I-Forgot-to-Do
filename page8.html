@@ -4,14 +4,12 @@
   <meta charset="UTF-8" />
   <title>Midterm Assignment</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background-color: #6d8fd8; 
+      background-color: #6d8fd8;
       color: #111;
     }
 
@@ -20,11 +18,10 @@
       padding: 40px 60px;
     }
 
-    h1, h2, p {
-      margin: 0;
-    }
+    h1, h2, p { margin: 0; }
 
     /* ---------- SCREEN 1 ---------- */
+
     #screen1 { display: block; }
     #screen2 { display: none; }
 
@@ -48,10 +45,15 @@
       font-size: 20px;
     }
 
-    /* 정확히 너가 보낸 아이콘 SVG */
-    .progress-circle {
-        width:60px;
-        height:60px;
+    /* 로딩 아이콘 (정확히 네가 원하는 12시→4시 각도) */
+    .status-circle {
+      width: 46px;
+      height: 46px;
+      margin-right: 15px;
+    }
+    .status-circle svg {
+      width: 46px;
+      height: 46px;
     }
 
     .details-title {
@@ -77,12 +79,17 @@
       border-radius: 4px;
       cursor: pointer;
     }
+    .submit-btn:hover { opacity: 0.9; }
 
     /* ---------- SCREEN 2 ---------- */
+
+    #screen2 {
+      margin-top: 70px; /* ⭐ 팝업과 겹치지 않도록 전체 블록 아래로 이동 */
+    }
+
     .ms-title {
       font-size: 20px;
       margin-bottom: 25px;
-      margin-top: 80px;  /* 팝업과 안 겹치게 내용 전체 아래로 */
     }
 
     .ms-line {
@@ -97,9 +104,7 @@
       margin-bottom: 15px;
     }
 
-    .ms-info-row span.label {
-      font-weight: bold;
-    }
+    .ms-info-row span.label { font-weight: bold; }
 
     .ms-details p {
       font-size: 18px;
@@ -107,7 +112,8 @@
       margin-bottom: 10px;
     }
 
-    /* ---------- TOAST POPUP ---------- */
+    /* ---------- Toast popup ---------- */
+
     #toast {
       position: fixed;
       top: 40px;
@@ -157,7 +163,8 @@
       padding-left: 15px;
     }
 
-    /* 화살표 버튼 */
+    /* ---------- NEXT ARROW ---------- */
+
     #nextArrow {
       position: fixed;
       right: 50px;
@@ -165,114 +172,129 @@
       width: 55px;
       height: 55px;
       cursor: pointer;
+      opacity: 0.9;
+      transition: 0.2s;
+      display: none;
     }
+    #nextArrow:hover { opacity: 1; }
+
   </style>
 </head>
+
 <body>
-  <div class="page-wrap">
+<div class="page-wrap">
 
-    <!-- ========== SCREEN 1 ========== -->
-    <div id="screen1">
-      <div class="screen-header">
-        <div>week 7 assignment | midterm write up</div>
-        <div>5 points possible</div>
-      </div>
-
-      <div class="screen-subheader">due: tue Oct 21, 2025 11:59 pm</div>
-
-      <div class="status-row">
-        <div class="status-circle">
-          <svg viewBox="0 0 50 50">
-            <path
-              d="M25 5 A20 20 0 1 1 45 25"
-              fill="none"
-              stroke="#000"
-              stroke-width="4"
-              stroke-linecap="round"
-            />
-          </svg>
-        </div>
-        <div>
-          <div style="font-weight: bold;">in progress</div>
-          <div>next up: submit assignment</div>
-        </div>
-      </div>
-
-      <div class="details-title">details</div>
-
-      <div class="details-text">
-        <p>harmonic collection entry midterm edit</p>
-        <p>review and revise all of your entries so that they are responsive and beginning to create a coherent story.</p>
-        <p>write a short document to accompany your midterm.</p>
-        <p>next class we’ll be doing presentations and group discussions of your midterms to get useful feedback.</p>
-      </div>
-
-      <button id="submitBtn" class="submit-btn">submit assignment</button>
+  <!-- ========== SCREEN 1 ========== -->
+  <div id="screen1">
+    <div class="screen-header">
+      <div>week 7 assignment | midterm write up</div>
+      <div>5 points possible</div>
     </div>
 
-    <!-- ========== SCREEN 2 ========== -->
-    <div id="screen2">
-      <div class="ms-title">media submission</div>
+    <div class="screen-subheader">
+      due: tue Oct 21, 2025 11:59 pm
+    </div>
 
-      <div class="ms-line"></div>
-
-      <div class="ms-info-row">
-        <span class="label">due</span><span>Oct 31 by 11:59pm</span>
-        <span class="label">points</span><span>5</span>
-        <span class="label">submitting</span><span>a file upload</span>
+    <div class="status-row">
+      <div class="status-circle">
+        <!-- 정확한 12→4시 각도 로딩 아이콘 -->
+        <svg viewBox="0 0 50 50">
+          <path d="M25 5
+                   A 20 20 0 1 1 12 12"
+                fill="none"
+                stroke="#000"
+                stroke-width="4"
+                stroke-linecap="round"/>
+        </svg>
       </div>
 
-      <div class="ms-line"></div>
-
-      <div class="ms-details">
-        <p>harmonic collection entry midterm edit</p>
-        <p>review and revise all of your entries so that they are responsive and beginning to create a coherent story.</p>
-        <p>write a short document to accompany your midterm.</p>
-        <p>next class we’ll be doing presentations and group discussions of your midterms to get useful feedback.</p>
+      <div>
+        <div class="status-text-top">in progress</div>
+        <div>next up: submit assignment</div>
       </div>
+    </div>
+
+    <div class="details-title">details</div>
+
+    <div class="details-text">
+      <p>harmonic collection entry midterm edit</p>
+      <p>review and revise all of your entries so that they are responsive and beginning to create a coherent story.</p>
+      <p>write a short document to accompany your midterm.</p>
+      <p>next class we’ll be doing presentations and group discussions of your midterms to get useful feedback.</p>
+    </div>
+
+    <button id="submitBtn" class="submit-btn">submit assignment</button>
+  </div>
+
+  <!-- ========== SCREEN 2 ========== -->
+  <div id="screen2">
+    <div class="ms-title">media submission</div>
+
+    <div class="ms-line"></div>
+
+    <div class="ms-info-row">
+      <span class="label">due</span>
+      <span>Oct 31 by 11:59pm</span>
+      <span class="label">points</span>
+      <span>5</span>
+      <span class="label">submitting</span>
+      <span>a file upload</span>
+    </div>
+
+    <div class="ms-line"></div>
+
+    <div class="ms-details">
+      <p>harmonic collection entry midterm edit</p>
+      <p>review and revise all of your entries so that they are responsive and beginning to create a coherent story.</p>
+      <p>write a short document to accompany your midterm.</p>
+      <p>next class we’ll be doing presentations and group discussions of your midterms to get useful feedback.</p>
     </div>
   </div>
 
-  <!-- Toast -->
-  <div id="toast">
-    <div class="toast-left">
-      <div class="toast-check">✔</div>
-      assignment successfully submitted.
-    </div>
-    <div class="toast-close" id="toastClose">✕</div>
+</div>
+
+<!-- Toast Popup -->
+<div id="toast">
+  <div class="toast-left">
+    <div class="toast-check">✔</div>
+    <span>assignment successfully submitted.</span>
   </div>
+  <div class="toast-close" id="toastClose">✕</div>
+</div>
 
-  <!-- Next Arrow -->
-  <svg id="nextArrow" viewBox="0 0 24 24">
-    <path d="M8 5l8 7-8 7" fill="none" stroke="#0d1b2e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
+<!-- NEXT ARROW -->
+<img id="nextArrow" src="data:image/svg+xml;utf8,
+<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
+<path d='M5 12h14M13 5l7 7-7 7'/>
+</svg>" />
 
-  <script>
-    const submitBtn = document.getElementById("submitBtn");
-    const screen1 = document.getElementById("screen1");
-    const screen2 = document.getElementById("screen2");
-    const toast = document.getElementById("toast");
-    const toastClose = document.getElementById("toastClose");
-    const nextArrow = document.getElementById("nextArrow");
+<script>
+  const submitBtn = document.getElementById("submitBtn");
+  const screen1 = document.getElementById("screen1");
+  const screen2 = document.getElementById("screen2");
+  const toast = document.getElementById("toast");
+  const toastClose = document.getElementById("toastClose");
+  const nextArrow = document.getElementById("nextArrow");
 
-    submitBtn.addEventListener("click", () => {
-      screen1.style.display = "none";
-      screen2.style.display = "block";
+  submitBtn.addEventListener("click", () => {
+    screen1.style.display = "none";
+    screen2.style.display = "block";
 
-      setTimeout(() => {
-        toast.classList.add("show");
-      }, 120);
-    });
+    setTimeout(() => {
+      toast.classList.add("show");
+      nextArrow.style.display = "block";
+    }, 120);
+  });
 
-    toastClose.addEventListener("click", () => {
-      toast.classList.remove("show");
-    });
+  toastClose.onclick = () => toast.classList.remove("show");
 
-    nextArrow.addEventListener("click", () => {
-      window.location.href = "page9.html";
-    });
-  </script>
+  nextArrow.onclick = () => {
+    window.location.href = "page9.html";
+  };
+</script>
+
 </body>
 </html>
+
 
 
