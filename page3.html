@@ -1,200 +1,54 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>Pink Ivory Toggles</title>
-  <style>
-    :root {
-      --pink: #f23b8f;
-      --ivory: #fbe8d2;
-    }
+<meta charset="UTF-8" />
+<title>Simple Switch</title>
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+  :root {
+    --pink: #f23b8f;
+    --ivory: #fbe8d2;
+  }
 
-    html, body {
-      height: 100%;
-    }
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--pink);
+    font-family: Helvetica, Arial, sans-serif;
+  }
 
-    body {
-      background: var(--pink);
-      font-family: Helvetica, Arial, sans-serif;
-      overflow: hidden;
-    }
+  .switch {
+    width: 200px;
+    height: 80px;
+    border: 4px solid var(--ivory);
+    border-radius: 40px;
+    position: relative;
+  }
 
-    .scene {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-    }
+  .text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ivory);
+    font-size: 32px;
+    user-select: none;
+  }
 
-    /* 공통 토글 스타일 */
-    .toggle {
-      position: absolute;
-      width: 220px;
-      height: 80px;
-      border-radius: 40px;
-      border: 3px solid var(--ivory);
-      background: transparent;
-      cursor: pointer;
-      padding: 0;
-      outline: none;
-    }
-
-    .toggle:active {
-      transform: translateY(1px);
-    }
-
-    .track-label {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 30px;
-      color: var(--ivory);
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-    }
-
-    .track-on {
-      left: 26px;
-    }
-
-    .track-off {
-      right: 26px;
-    }
-
-    .knob {
-      position: absolute;
-      top: 50%;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: var(--ivory);
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: left 0.25s ease;
-    }
-
-    .knob-text {
-      position: absolute;
-      font-size: 30px;
-      color: var(--pink);
-      transition: opacity 0.2s ease;
-    }
-
-    /* ON / OFF 상태에 따라 위치, 텍스트 바꾸기 */
-    .toggle.is-on .knob {
-      left: 8px;
-    }
-
-    .toggle.is-off .knob {
-      left: calc(100% - 8px - 80px);
-    }
-
-    .toggle.is-on .knob-on  { opacity: 1; }
-    .toggle.is-on .knob-off { opacity: 0; }
-    .toggle.is-off .knob-on  { opacity: 0; }
-    .toggle.is-off .knob-off { opacity: 1; }
-
-    .toggle.is-on  .track-on  { opacity: 0; }
-    .toggle.is-on  .track-off { opacity: 1; }
-    .toggle.is-off .track-on  { opacity: 1; }
-    .toggle.is-off .track-off { opacity: 0; }
-  </style>
+  .text.on  { left: 25px; }
+  .text.off { right: 25px; }
+</style>
 </head>
+
 <body>
-  <div class="scene">
-    <!-- 위 가운데 OFF -->
-    <button class="toggle is-off" style="top: 12%; left: 40%;">
-      <span class="track-label track-on">on</span>
-      <span class="track-label track-off">off</span>
-      <span class="knob">
-        <span class="knob-text knob-on">on</span>
-        <span class="knob-text knob-off">off</span>
-      </span>
-    </button>
 
-    <!-- 위 오른쪽 ON -->
-    <button class="toggle is-on" style="top: 18%; right: 10%;">
-      <span class="track-label track-on">on</span>
-      <span class="track-label track-off">off</span>
-      <span class="knob">
-        <span class="knob-text knob-on">on</span>
-        <span class="knob-text knob-off">off</span>
-      </span>
-    </button>
-
-    <!-- 중간 왼쪽 ON -->
-    <button class="toggle is-on" style="top: 35%; left: 12%;">
-      <span class="track-label track-on">on</span>
-      <span class="track-label track-off">off</span>
-      <span class="knob">
-        <span class="knob-text knob-on">on</span>
-        <span class="knob-text knob-off">off</span>
-      </span>
-    </button>
-
-    <!-- 중간 오른쪽 ON -->
-    <button class="toggle is-on" style="top: 38%; right: 15%;">
-      <span class="track-label track-on">on</span>
-      <span class="track-label track-off">off</span>
-      <span class="knob">
-        <span class="knob-text knob-on">on</span>
-        <span class="knob-text knob-off">off</span>
-      </span>
-    </button>
-
-    <!-- 가운데 아래 ON -->
-    <button class="toggle is-on" style="top: 55%; left: 42%;">
-      <span class="track-label track-on">on</span>
-      <span class="track-label track-off">off</span>
-      <span class="knob">
-        <span class="knob-text knob-on">on</span>
-        <span class="knob-text knob-off">off</span>
-      </span>
-    </button>
-
-    <!-- 아래 왼쪽 ON -->
-    <button class="toggle is-on" style="top: 72%; left: 14%;">
-      <span class="track-label track-on">on</span>
-      <span class="track-label track-off">off</span>
-      <span class="knob">
-        <span class="knob-text knob-on">on</span>
-        <span class="knob-text knob-off">off</span>
-      </span>
-    </button>
-
-    <!-- 아래 오른쪽 ON -->
-    <button class="toggle is-on" style="top: 74%; right: 14%;">
-      <span class="track-label track-on">on</span>
-      <span class="track-label track-off">off</span>
-      <span class="knob">
-        <span class="knob-text knob-on">on</span>
-        <span class="knob-text knob-off">off</span>
-      </span>
-    </button>
+  <div class="switch">
+    <div class="text on">on</div>
+    <div class="text off">off</div>
   </div>
 
-  <script>
-    const toggles = document.querySelectorAll('.toggle');
-
-    toggles.forEach(toggle => {
-      toggle.addEventListener('click', () => {
-        if (toggle.classList.contains('is-on')) {
-          toggle.classList.remove('is-on');
-          toggle.classList.add('is-off');
-        } else {
-          toggle.classList.remove('is-off');
-          toggle.classList.add('is-on');
-        }
-      });
-    });
-  </script>
 </body>
 </html>
 
