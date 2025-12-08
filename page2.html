@@ -2,268 +2,99 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>Custom Dropdowns</title>
+  <title>Simple On/Off Switch</title>
   <style>
-    body {
+    :root {
+      --pink: #f23b8f;
+      --ivory: #fbe8d2;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      height: 100vh;
-      background-color: #4b2627; /* 와인색 배경 */
-      font-family: Arial, sans-serif;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: var(--pink);
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica", Arial, sans-serif;
     }
 
-    .wrapper {
+    /* 스위치 전체 */
+    .toggle {
       position: relative;
-      width: 1100px;
-      height: 550px;
-    }
-
-    /* 공통 드롭다운 박스 스타일 */
-    .dropdown {
-      position: absolute;
-      width: 320px;
-      border: 2px solid #89c2ff;
-      color: #89c2ff;
-      padding: 14px 18px;
-      font-size: 24px;
+      width: 140px;
+      height: 56px;
+      border-radius: 28px;
+      border: 3px solid var(--ivory);
+      background: transparent;
       cursor: pointer;
-      box-sizing: border-box;
-      background-color: transparent;
-      transition: background-color 0.15s, color 0.15s;
-    }
-
-    /* 선택된 박스(옵션 클릭 후) */
-    .dropdown.selected {
-      background-color: #9fc9ff; /* 연파랑 */
-      color: #4b2627;            /* 글자 진한 브라운 */
-    }
-
-    /* 위치 + z-index */
-    .dropdown.date {
-      top: 80px;
-      left: 80px;
-      z-index: 4;
-    }
-
-    .dropdown.time {
-      top: 80px;
-      right: 80px;
-      z-index: 4;
-    }
-
-    .dropdown.reasons {
-      top: 220px;
-      left: 390px;
-      width: 360px;
-      z-index: 2;
-    }
-
-    .dropdown.location {
-      bottom: 80px;
-      left: 140px;
-      width: 340px;
-      z-index: 1;
-    }
-
-    .dropdown.session {
-      bottom: 80px;
-      right: 80px;
-      width: 380px;
-      z-index: 1;
-    }
-
-    .dropdown-header {
+      padding: 0;
+      outline: none;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      pointer-events: none; /* 클릭 이벤트는 부모(.dropdown)에서 처리 */
     }
 
-    .dropdown-arrow {
-      font-size: 20px;
-      margin-left: 15px;
-      transition: transform 0.15s;
+    /* 접근성용 포커스 표시 */
+    .toggle:focus-visible {
+      box-shadow: 0 0 0 4px rgba(251, 232, 210, 0.6);
     }
 
-    /* 펼쳐지는 리스트 */
-    .dropdown-list {
-      display: none;
+    /* 동그라미(노브) */
+    .toggle__knob {
       position: absolute;
-      left: -2px;
-      right: -2px;
-      top: 100%;
-      border: 2px solid #89c2ff;
-      border-top: none;
-      background-color: #4b2627;
-      box-sizing: border-box;
-      z-index: 1;
-    }
-
-    .dropdown-item {
-      padding: 14px 18px;
-      border-top: 2px solid #89c2ff;
-      font-size: 22px;
-      color: #89c2ff;
-      background-color: #4b2627;
-      transition: background-color 0.15s, color 0.15s;
-    }
-
-    /* hover 때 색 변하는 부분 */
-    .dropdown-item:hover {
-      background-color: #9fc9ff;
-      color: #4b2627;
-    }
-
-    /* 열렸을 때 */
-    .dropdown.open .dropdown-list {
-      display: block;
-    }
-
-    .dropdown.open .dropdown-arrow {
-      transform: rotate(180deg);
-    }
-
-    /* 🔥 오른쪽 하단 next 버튼 */
-    .next-page-btn {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      font-size: 45px;
-      color: #89c2ff;
-      cursor: pointer;
+      left: 4px;           /* OFF일 때 왼쪽 */
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--ivory);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink);
+      font-size: 20px;
+      font-weight: 500;
+      transition: left 0.22s ease;
       user-select: none;
-      transition: 0.2s;
     }
 
-    .next-page-btn:hover {
-      color: white;
-      transform: scale(1.25);
+    /* ON 상태일 때 노브 위치 오른쪽으로 이동 */
+    .toggle[data-state="on"] .toggle__knob {
+      left: calc(100% - 4px - 48px);
     }
   </style>
 </head>
 <body>
 
-  <!-- 🔽 오른쪽 하단 화살표 버튼 -->
-  <div class="next-page-btn">➜</div>
-
-  <div class="wrapper">
-
-    <!-- (date) -->
-    <div class="dropdown date" data-placeholder="(date)">
-      <div class="dropdown-header">
-        <span class="dropdown-label">(date)</span>
-        <span class="dropdown-arrow">▾</span>
-      </div>
-      <div class="dropdown-list">
-        <div class="dropdown-item">monday</div>
-        <div class="dropdown-item">tuesday</div>
-        <div class="dropdown-item">wednesday</div>
-        <div class="dropdown-item">thursday</div>
-        <div class="dropdown-item">friday</div>
-        <div class="dropdown-item">saturday</div>
-      </div>
-    </div>
-
-    <!-- (time) -->
-    <div class="dropdown time" data-placeholder="(time)">
-      <div class="dropdown-header">
-        <span class="dropdown-label">(time)</span>
-        <span class="dropdown-arrow">▾</span>
-      </div>
-      <div class="dropdown-list">
-        <div class="dropdown-item">10:00 am - 10:20 am</div>
-        <div class="dropdown-item">10:20 am - 10:40 am</div>
-        <div class="dropdown-item">10:40 am - 11:00 am</div>
-        <div class="dropdown-item">11:00 am - 11:20 am</div>
-        <div class="dropdown-item">11:20 am - 11:40 am</div>
-        <div class="dropdown-item">12:00 am - 12:20 am</div>
-        <div class="dropdown-item">12:40 pm - 1:00 pm</div>
-      </div>
-    </div>
-
-    <!-- (reasons) -->
-    <div class="dropdown reasons" data-placeholder="(reasons)">
-      <div class="dropdown-header">
-        <span class="dropdown-label">(reasons)</span>
-        <span class="dropdown-arrow">▾</span>
-      </div>
-      <div class="dropdown-list">
-        <div class="dropdown-item">academic concerns</div>
-        <div class="dropdown-item">registration</div>
-        <div class="dropdown-item">study abroad</div>
-        <div class="dropdown-item">personal concerns</div>
-        <div class="dropdown-item">other</div>
-      </div>
-    </div>
-
-    <!-- (location) -->
-    <div class="dropdown location" data-placeholder="(location)">
-      <div class="dropdown-header">
-        <span class="dropdown-label">(location)</span>
-        <span class="dropdown-arrow">▾</span>
-      </div>
-      <div class="dropdown-list">
-        <div class="dropdown-item">zoom</div>
-        <div class="dropdown-item">6 E 16th St</div>
-      </div>
-    </div>
-
-    <!-- (session types) -->
-    <div class="dropdown session" data-placeholder="(session types)">
-      <div class="dropdown-header">
-        <span class="dropdown-label">(session types)</span>
-        <span class="dropdown-arrow">▾</span>
-      </div>
-      <div class="dropdown-list">
-        <div class="dropdown-item">group</div>
-        <div class="dropdown-item">single</div>
-      </div>
-    </div>
-
-  </div>
+  <!-- 기본 상태: off -->
+  <button class="toggle" type="button" data-state="off" aria-pressed="false">
+    <span class="toggle__knob">off</span>
+  </button>
 
   <script>
-    // 드롭다운 동작 설정 (한 번에 하나만 열리게)
-    document.querySelectorAll('.dropdown').forEach(dropdown => {
-      const label = dropdown.querySelector('.dropdown-label');
-      const items = dropdown.querySelectorAll('.dropdown-item');
+    const toggle = document.querySelector(".toggle");
+    const knob   = toggle.querySelector(".toggle__knob");
 
-      dropdown.addEventListener('click', (e) => {
-        // 옵션 클릭이면 여기서는 처리하지 않음
-        if (e.target.classList.contains('dropdown-item')) return;
-
-        // 다른 드롭다운은 모두 닫기
-        document.querySelectorAll('.dropdown').forEach(d => {
-          if (d !== dropdown) d.classList.remove('open');
-        });
-
-        // 현재 것만 토글
-        dropdown.classList.toggle('open');
-      });
-
-      items.forEach(item => {
-        item.addEventListener('click', () => {
-          label.textContent = item.textContent;
-          dropdown.classList.add('selected');
-          dropdown.classList.remove('open');
-        });
-      });
-    });
-
-    // 바깥 클릭 시 모든 드롭다운 닫기
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.dropdown')) {
-        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
-      }
-    });
-
-    // 🔥 오른쪽 하단 버튼 → page3.html 이동
-    document.querySelector('.next-page-btn').addEventListener('click', () => {
-      window.location.href = "page3.html";
+    toggle.addEventListener("click", () => {
+      const isOn = toggle.dataset.state === "on";
+      // 상태 반전
+      toggle.dataset.state = isOn ? "off" : "on";
+      toggle.setAttribute("aria-pressed", String(!isOn));
+      // 텍스트 변경
+      knob.textContent = isOn ? "off" : "on";
     });
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
