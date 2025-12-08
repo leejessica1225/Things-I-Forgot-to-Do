@@ -61,18 +61,18 @@
     }
 
     /* 펼쳐지는 리스트 */
-    .dropdown-list {
-      display: none;
-      position: absolute;
-      left: -2px;
-      right: -2px;
-      top: 100%;
-      border: 2px solid #89c2ff;
-      border-top: none;
-      background-color: #4b2627;
-      box-sizing: border-box;
-      z-index: 50;
-    }
+  .dropdown-list {
+  display: none;
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: 100%;
+  border: 2px solid #89c2ff;
+  border-top: none;
+  background-color: #4b2627;
+  box-sizing: border-box;
+  z-index: 9999;   /* ← 이것만 추가하면 해결! */
+}
 
     .dropdown-item {
       padding: 14px 18px;
