@@ -51,7 +51,173 @@
     .top-row {
       display: flex;
       justify-content: center;
-      align-item
+      align-items: center; /* delicates 중앙 기준으로 start 동그라미 중앙 정렬 */
+      gap: 60px;
+      margin-bottom: 70px; /* 아래 줄과의 간격 (동그라미 아래선 ≒ extra rinse 아래선) */
+    }
+
+    .top-buttons {
+      display: flex;
+      gap: 60px;
+    }
+
+    /* start + 동그라미 */
+    .start-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin-left: 30px;
+    }
+
+    .start-text {
+      font-size: 30px;
+    }
+
+    #startButton {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: #4d332f;
+      cursor: pointer;
+    }
+
+    /* options 라벨 줄: 위/아래 버튼들 사이의 중간 높이 */
+    .options-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .options-line {
+      width: 190px;
+      border-bottom: 2px solid #4d332f;
+      margin: 0 10px;
+      margin-top: 10px;
+    }
+
+    .options-label {
+      font-size: 28px;
+    }
+
+    /* 아래 줄: temperature / extra rinse (normal 밑에) / 빈칸(정렬용) */
+    .bottom-row {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .button-rect.spacer {
+      visibility: hidden; /* 세 번째 컬럼 자리만 맞추는 용도 */
+    }
+
+    /* ======= 2번째 화면 ======= */
+    #screen2 {
+      display: none;
+      flex-direction: column;
+    }
+
+    .time-wrapper {
+      display: flex;
+      align-items: baseline;
+    }
+
+    #timeNumber {
+      font-size: 150px;
+      font-weight: 400;
+    }
+
+    .minutes-label {
+      font-size: 32px;
+      margin-left: 18px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 첫 번째 화면 -->
+  <div id="screen1" class="screen">
+    <div class="content">
+      <div class="title">washer</div>
+
+      <!-- 위 줄 -->
+      <div class="top-row">
+        <div class="top-buttons">
+          <div class="button-rect">powerwash</div>
+          <div class="button-rect">normal</div>
+          <div class="button-rect">delicates</div>
+        </div>
+
+        <div class="start-block">
+          <div class="start-text">start</div>
+          <div id="startButton"></div>
+        </div>
+      </div>
+
+      <!-- options 라벨 -->
+      <div class="options-wrapper">
+        <div class="options-line"></div>
+        <div class="options-label">options</div>
+        <div class="options-line"></div>
+      </div>
+
+      <!-- 아래 줄 -->
+      <div class="bottom-row">
+        <div class="button-rect">temperature</div>
+        <div class="button-rect">extra rinse</div>  <!-- normal 밑에 위치 -->
+        <div class="button-rect spacer">spacer</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 두 번째 화면 -->
+  <div id="screen2" class="screen">
+    <div class="time-wrapper">
+      <span id="timeNumber">0</span>
+      <span class="minutes-label">minutes</span>
+    </div>
+  </div>
+
+  <script>
+    const startButton = document.getElementById("startButton");
+    const screen1 = document.getElementById("screen1");
+    const screen2 = document.getElementById("screen2");
+    const timeNumber = document.getElementById("timeNumber");
+
+    startButton.addEventListener("click", () => {
+      // 첫 화면 숨기고 두 번째 화면 즉시 보이기
+      screen1.style.display = "none";
+      screen2.style.display = "flex";
+
+      const maxNumber = 54;
+      const duration = 2500;   // 숫자 랜덤 변화 총 시간(ms)
+      const intervalTime = 40; // 숫자 변경 간격(ms)
+
+      let elapsed = 0;
+
+      const intervalId = setInterval(() => {
+        elapsed += intervalTime;
+
+        // 0~54 랜덤 숫자
+        const randomNum = Math.floor(Math.random() * (maxNumber + 1));
+        timeNumber.textContent = randomNum;
+
+        // 끝나면 54로 고정
+        if (elapsed >= duration) {
+          clearInterval(intervalId);
+          timeNumber.textContent = maxNumber;
+
+          // 1000ms 후 page11.html 이동
+          setTimeout(() => {
+            window.location.href = "page11.html";
+          }, 1000);
+        }
+      }, intervalTime);
+    });
+  </script>
+</body>
+</html>
+
 
 
 
