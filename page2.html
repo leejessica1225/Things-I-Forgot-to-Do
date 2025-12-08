@@ -40,12 +40,39 @@
       color: #4b2627;            /* 글자 진한 브라운 */
     }
 
-    /* 위치 (이미지 비슷하게 배치) */
-    .dropdown.date { top: 80px; left: 80px; }
-    .dropdown.time { top: 80px; right: 80px; }
-    .dropdown.reasons { top: 220px; left: 390px; width: 360px; }
-    .dropdown.location { bottom: 80px; left: 140px; width: 340px; }
-    .dropdown.session { bottom: 80px; right: 80px; width: 380px; }
+    /* 위치 + z-index (위에 있을수록 숫자 크게) */
+    .dropdown.date {
+      top: 80px;
+      left: 80px;
+      z-index: 4;
+    }
+
+    .dropdown.time {
+      top: 80px;
+      right: 80px;
+      z-index: 4;
+    }
+
+    .dropdown.reasons {
+      top: 220px;
+      left: 390px;
+      width: 360px;
+      z-index: 2; /* 👉 date/time 보다 "밑"에 보이게 */
+    }
+
+    .dropdown.location {
+      bottom: 80px;
+      left: 140px;
+      width: 340px;
+      z-index: 1;
+    }
+
+    .dropdown.session {
+      bottom: 80px;
+      right: 80px;
+      width: 380px;
+      z-index: 1;
+    }
 
     .dropdown-header {
       display: flex;
@@ -71,7 +98,7 @@
       border-top: none;
       background-color: #4b2627;
       box-sizing: border-box;
-      z-index: 9999; 
+      z-index: 1;  /* 너무 크게 줄 필요 없음 */
     }
 
     .dropdown-item {
@@ -232,3 +259,4 @@
 
 </body>
 </html>
+
