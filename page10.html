@@ -24,9 +24,10 @@
 
     /* ======= 1번째 화면 ======= */
     #screen1 .content {
-      width: 960px;
-      max-width: 960px;
+      width: 1000px;
+      max-width: 1000px;
       text-align: center;
+      position: relative; /* start 동그라미 absolute 기준 */
     }
 
     .title {
@@ -34,17 +35,16 @@
       margin-bottom: 120px;
     }
 
+    /* 위에 3개 버튼 줄 */
     .modes-row {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 40px;
+      justify-content: center;
+      margin-bottom: 80px;
     }
 
     .modes-buttons {
       display: flex;
       gap: 60px;
-      margin-left: 40px;
     }
 
     .button-rect {
@@ -53,15 +53,49 @@
       padding: 22px 40px;
       font-size: 30px;
       border-radius: 2px;
-      min-width: 210px;
+      min-width: 230px;
       text-align: center;
     }
 
+    /* options 라벨 & 라인 */
+    .options-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 35px;
+      margin-top: 10px;
+    }
+
+    .options-line {
+      width: 170px;
+      border-bottom: 2px solid #4d332f;
+      margin: 0 10px;
+      margin-top: 10px;
+    }
+
+    .options-label {
+      font-size: 28px;
+    }
+
+    /* 아래 temperature / extra rinse 줄 */
+    .options-buttons-row {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+    }
+
+    .button-rect.spacer {
+      visibility: hidden;   /* 자리는 차지하지만 안 보임 (정렬용) */
+    }
+
+    /* start + 동그라미 */
     .start-block {
+      position: absolute;
+      right: 80px;          /* extra rinse 오른쪽 */
+      top: 320px;           /* 위·아래 버튼 중간 높이 정도 */
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-right: 40px;
       gap: 12px;
     }
 
@@ -75,31 +109,6 @@
       border-radius: 50%;
       background: #4d332f;
       cursor: pointer;
-    }
-
-    .options-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 35px;
-      margin-top: 10px;
-    }
-
-    .options-line {
-      width: 150px;
-      border-bottom: 2px solid #4d332f;
-      margin: 0 10px;
-      margin-top: 10px;
-    }
-
-    .options-label {
-      font-size: 28px;
-    }
-
-    .options-buttons-row {
-      display: flex;
-      justify-content: center;
-      gap: 120px;
     }
 
     /* ======= 2번째 화면 ======= */
@@ -130,28 +139,33 @@
     <div class="content">
       <div class="title">washer</div>
 
+      <!-- 위 3개 버튼 -->
       <div class="modes-row">
         <div class="modes-buttons">
           <div class="button-rect">powerwash</div>
           <div class="button-rect">normal</div>
           <div class="button-rect">delicates</div>
         </div>
-
-        <div class="start-block">
-          <div class="start-text">start</div>
-          <div id="startButton"></div>
-        </div>
       </div>
 
+      <!-- options 라벨 -->
       <div class="options-wrapper">
         <div class="options-line"></div>
         <div class="options-label">options</div>
         <div class="options-line"></div>
       </div>
 
+      <!-- 아래 3 슬롯: temperature / (빈칸) / extra rinse -->
       <div class="options-buttons-row">
         <div class="button-rect">temperature</div>
+        <div class="button-rect spacer">spacer</div>
         <div class="button-rect">extra rinse</div>
+      </div>
+
+      <!-- start + 동그라미 (absolute 위치) -->
+      <div class="start-block">
+        <div class="start-text">start</div>
+        <div id="startButton"></div>
       </div>
     </div>
   </div>
@@ -171,29 +185,29 @@
     const timeNumber = document.getElementById("timeNumber");
 
     startButton.addEventListener("click", () => {
-      // 1) 첫 화면 숨기고 두 번째 화면 즉시 보이기
+      // 첫 화면 숨기고 두 번째 화면 즉시 보이기
       screen1.style.display = "none";
       screen2.style.display = "flex";
 
       const maxNumber = 54;
-      const duration = 2500;   // 숫자 랜덤 변화 총 시간
-      const intervalTime = 40; // 숫자 변경 속도
+      const duration = 2500;   // 숫자 랜덤 변화 총 시간(ms)
+      const intervalTime = 40; // 숫자 변경 간격(ms)
 
       let elapsed = 0;
 
       const intervalId = setInterval(() => {
         elapsed += intervalTime;
 
-        // 0~54 랜덤 숫자 표시
+        // 0~54 랜덤 숫자
         const randomNum = Math.floor(Math.random() * (maxNumber + 1));
         timeNumber.textContent = randomNum;
 
-        // 시간이 끝나면 54에서 멈춤
+        // 끝나면 54로 고정
         if (elapsed >= duration) {
           clearInterval(intervalId);
           timeNumber.textContent = maxNumber;
 
-          // ⭐ 숫자 고정 후 80ms 뒤 page11.html 로 이동
+          // 80ms 후 page11.html 이동
           setTimeout(() => {
             window.location.href = "page11.html";
           }, 80);
@@ -203,6 +217,7 @@
   </script>
 </body>
 </html>
+
 
 
 
