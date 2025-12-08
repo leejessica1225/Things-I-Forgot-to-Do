@@ -32,7 +32,7 @@
       height: 650px;
     }
 
-    /* ----- 토글 공통 스타일 ----- */
+    /* ----- 토글 버튼 ----- */
 
     .toggle {
       position: absolute;
@@ -64,7 +64,6 @@
       cursor: pointer;
     }
 
-    /* 동그란 버튼(노브) */
     .toggle-knob {
       position: absolute;
       width: 86px;
@@ -78,36 +77,25 @@
       font-weight: 400;
       color: var(--knob-text);
       cursor: pointer;
-      left: 0;                         /* 시작 위치: 왼쪽(on) */
+      left: 0;
       transition: transform 0.3s ease-in-out;
       transform: translateX(0);
     }
 
-    /* off 상태일 때 오른쪽으로 이동 */
     .toggle.is-off .toggle-knob {
-      transform: translateX(160px);    /* 트랙 폭에 맞춰 조정 */
+      transform: translateX(160px);
     }
 
     .toggle-knob span {
       transition: opacity 0.2s ease;
     }
 
-    /* 상태별 텍스트 표시 */
-    .toggle.is-off .knob-text-on {
-      opacity: 0;
-    }
-    .toggle.is-off .knob-text-off {
-      opacity: 1;
-    }
-    .toggle:not(.is-off) .knob-text-on {
-      opacity: 1;
-    }
-    .toggle:not(.is-off) .knob-text-off {
-      opacity: 0;
-    }
+    .toggle.is-off .knob-text-on { opacity: 0; }
+    .toggle.is-off .knob-text-off { opacity: 1; }
+    .toggle:not(.is-off) .knob-text-on { opacity: 1; }
+    .toggle:not(.is-off) .knob-text-off { opacity: 0; }
 
-    /* ----- 여러 개 토글 위치 배치 (대략 스샷처럼) ----- */
-
+    /* ---- 위치 배치 ---- */
     .toggle.t1 { top: 60px; left: 140px; }
     .toggle.t2 { top: 60px; right: 120px; }
     .toggle.t3 { top: 230px; right: 260px; }
@@ -116,12 +104,29 @@
     .toggle.t6 { bottom: 90px; left: 180px; }
     .toggle.t7 { bottom: 80px; right: 160px; }
 
+    /* ---- 페이지 이동 화살표 ---- */
+    .next-arrow {
+      position: fixed;
+      bottom: 35px;
+      right: 35px;
+      font-size: 55px;
+      font-weight: bold;
+      color: var(--cream);
+      cursor: pointer;
+      user-select: none;
+      transition: opacity 0.2s ease;
+      text-decoration: none;
+    }
+
+    .next-arrow:hover {
+      opacity: 0.6;
+    }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <!-- 각각 독립적인 토글들 -->
 
+    <!-- 7개 토글들 -->
     <div class="toggle t1">
       <div class="toggle-track">
         <div class="label-on">on</div>
@@ -200,15 +205,17 @@
     </div>
   </div>
 
+  <!-- 🔥 오른쪽 아래 화살표: page4.html 이동 -->
+  <a class="next-arrow" href="page4.html">→</a>
+
   <script>
-    // 모든 토글에 대해: on / off / 동그라미 클릭 시 상태 토글
+    // 모든 토글에 대해 클릭 반응 추가
     document.querySelectorAll('.toggle').forEach(toggle => {
       const knob = toggle.querySelector('.toggle-knob');
       const labelOn = toggle.querySelector('.label-on');
       const labelOff = toggle.querySelector('.label-off');
 
       function toggleState() {
-        // Figma처럼 약간의 딜레이 후 상태 변경
         setTimeout(() => {
           toggle.classList.toggle('is-off');
         }, 1);
@@ -232,4 +239,5 @@
   </script>
 </body>
 </html>
+
 
