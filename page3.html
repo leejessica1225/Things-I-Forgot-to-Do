@@ -18,13 +18,14 @@
     justify-content: center;
     align-items: center;
     font-family: Helvetica, Arial, sans-serif;
+    position: relative;
   }
 
   .container {
     width: 900px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 40px;  /* 절대 겹치지 않음 */
+    gap: 40px;
   }
 
   .switch {
@@ -50,6 +51,7 @@
     gap: 12px;
   }
 
+  /* 기본 버튼 상태 */
   .btn {
     padding: 6px 16px;
     font-size: 20px;
@@ -58,10 +60,34 @@
     background: transparent;
     color: var(--ivory);
     cursor: pointer;
+    transition: 0.15s;
+  }
+
+  /* 눌렸을 때(활성화된 버튼) */
+  .btn.active {
+    background: var(--ivory);
+    color: var(--pink);
   }
 
   .btn:active {
-    transform: scale(0.96);
+    transform: scale(0.94);
+  }
+
+  /* 페이지 이동 화살표 */
+  .next-arrow {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 60px;
+    color: var(--ivory);
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+  }
+
+  .next-arrow:active {
+    transform: scale(0.9);
+    opacity: 0.7;
   }
 </style>
 </head>
@@ -70,7 +96,7 @@
 
 <div class="container">
 
-  <!-- SWITCH 1 -->
+  <!-- SWITCH TEMPLATE (복사됨) -->
   <div class="switch">
     <div class="status">OFF</div>
     <div class="btn-row">
@@ -79,7 +105,6 @@
     </div>
   </div>
 
-  <!-- SWITCH 2 -->
   <div class="switch">
     <div class="status">OFF</div>
     <div class="btn-row">
@@ -88,7 +113,6 @@
     </div>
   </div>
 
-  <!-- SWITCH 3 -->
   <div class="switch">
     <div class="status">OFF</div>
     <div class="btn-row">
@@ -97,7 +121,6 @@
     </div>
   </div>
 
-  <!-- SWITCH 4 -->
   <div class="switch">
     <div class="status">OFF</div>
     <div class="btn-row">
@@ -106,7 +129,6 @@
     </div>
   </div>
 
-  <!-- SWITCH 5 -->
   <div class="switch">
     <div class="status">OFF</div>
     <div class="btn-row">
@@ -115,7 +137,6 @@
     </div>
   </div>
 
-  <!-- SWITCH 6 -->
   <div class="switch">
     <div class="status">OFF</div>
     <div class="btn-row">
@@ -126,6 +147,9 @@
 
 </div>
 
+<!-- NEXT PAGE 화살표 -->
+<div class="next-arrow" onclick="location.href='page4.html'">→</div>
+
 <script>
   document.querySelectorAll(".switch").forEach((sw) => {
     const status = sw.querySelector(".status");
@@ -134,10 +158,16 @@
 
     btnOn.addEventListener("click", () => {
       status.textContent = "ON";
+
+      btnOn.classList.add("active");
+      btnOff.classList.remove("active");
     });
 
     btnOff.addEventListener("click", () => {
       status.textContent = "OFF";
+
+      btnOff.classList.add("active");
+      btnOn.classList.remove("active");
     });
   });
 </script>
