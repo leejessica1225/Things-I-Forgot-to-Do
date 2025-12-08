@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Custom Checkboxes</title>
+<title>Centered Checklist</title>
 
 <style>
   body {
@@ -10,20 +10,25 @@
     padding: 0;
     background-color: #e8a8c9; /* 연핑크 */
     font-family: Arial, sans-serif;
+
+    /* 🎯 전체 묶음을 화면 정중앙에 배치 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 
+  /* 체크리스트 전체 묶음 */
   .container {
     width: 70%;
-    margin: 60px auto;
-    text-align: center; /* 전체 가운데 정렬 */
   }
 
   .item {
     display: flex;
-    justify-content: center; /* 아이템 내부 가운데 */
     align-items: center;
+    justify-content: center; /* 가운데 정렬 */
     font-size: 32px;
-    color: #5a3b36; /* 브라운 */
+    color: #5a3b36;
     margin-bottom: 25px;
     border-bottom: 2px solid #5a3b36;
     padding-bottom: 10px;
@@ -40,7 +45,6 @@
     align-items: center;
   }
 
-  /* 체크 표시 */
   .checkmark {
     font-size: 28px;
     color: #5a3b36;
