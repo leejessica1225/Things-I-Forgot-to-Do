@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>return application</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      font-family: Helvetica, Arial, sans-serif;
+      background: #e3e4eb;         /* 연한 회색 배경 */
+      color: #ff1f8f;              /* 쨍한 핑크 */
+    }
+
+    .screen {
+      width: 100vw;
+      height: 100vh;
+      background: #e3e4eb;
+      display: flex;
+    }
+
+    /* ---------------- 1st screen ---------------- */
+    #screen1 {
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    .content {
+      margin-left: 120px;
+      margin-top: 80px;
+      width: 900px;
+    }
+
+    .title {
+      font-size: 30px;
+      margin-bottom: 40px;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 26px;
+    }
+
+    .status-icon {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 3px solid #ff1f8f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .status-icon.filled {
+      background: #ff1f8f;
+      color: #e3e4eb;
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .status-text {
+      font-size: 22px;
+      line-height: 1.4;
+    }
+
+    .status-text span.date {
+      display: block;
+      font-size: 18px;
+      margin-top: 4px;
+    }
+
+    .section-label {
+      font-size: 22px;
+      margin-top: 50px;
+      margin-bottom: 8px;
+    }
+
+    .section-line {
+      height: 2px;
+      background: #ff1f8f;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .body-text {
+      font-size: 18px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .qr-row {
+      display: flex;
+      align-items: center;
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+
+    .qr-card {
+      width: 170px;
+      height: 170px;
+      border: 3px solid #ff1f8f;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-right: 26px;
+    }
+
+    .qr-small-icon {
+      width: 60px;
+      height: 60px;
+      border: 8px solid #ff1f8f;
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .qr-small-icon::before,
+    .qr-small-icon::after {
+      content: "";
+      position: absolute;
+      border: 6px solid #ff1f8f;
+      width: 18px;
+      height: 18px;
+    }
+    .qr-small-icon::before {
+      top: 4px; left: 4px;
+    }
+    .qr-small-icon::after {
+      right: 4px; bottom: 4px;
+    }
+
+    .qr-label {
+      font-size: 20px;
+      text-align: center;
+    }
+
+    #downloadIcon {
+      width: 48px;
+      height: 48px;
+      background: #ff1f8f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .download-arrow {
+      width: 0;
+      height: 0;
+      border-left: 9px solid transparent;
+      border-right: 9px solid transparent;
+      border-top: 14px solid #e3e4eb;
+      margin-bottom: 2px;
+    }
+
+    .download-bar {
+      width: 18px;
+      height: 3px;
+      background: #e3e4eb;
+      margin-top: -2px;
+    }
+
+    .bottom-status {
+      margin-top: 10px;
+    }
+
+    /* ---------------- 2nd screen ---------------- */
+    #screen2 {
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-big {
+      width: 280px;
+      height: 280px;
+      background:
+        repeating-linear-gradient(90deg, #ff1f8f 0 6px, transparent 6px 12px),
+        repeating-linear-gradient(#ff1f8f 0 6px, transparent 6px 12px);
+      mask-image: radial-gradient(circle at 50% 50%, #000 70%, transparent 71%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 70%, transparent 71%);
+    }
+  </style>
+</head>
+<body>
+  <!-- -------- Screen 1: return application -------- -->
+  <div id="screen1" class="screen">
+    <div class="content">
+      <div class="ti
