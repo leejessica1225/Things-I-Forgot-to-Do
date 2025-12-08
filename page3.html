@@ -1,77 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Toggle Scene</title>
+  <meta charset="UTF-8" />
+  <title>Toggle Scene</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-<style>
-  body {
-    margin: 0;
-    height: 100vh;
-    width: 100vw;
-    background: #f23b8f; /* 핫핑크 배경 */
-    overflow: hidden;
-    position: relative;
-  }
+    html, body {
+      height: 100%;
+    }
 
-  /* 모든 토글 공통 스타일 */
-  .toggle {
-    position: absolute;
-    width: 220px;     /* 이미지 크기 맞춰 조정 가능 */
-    height: 80px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    transition: background-image 0.12s ease;
-  }
+    /* 화면 중앙에 캔버스(stage) 넣기 */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000; /* 바깥 배경 (원하면 #f23b8f 로 바꿔도 됨) */
+      overflow: auto;
+      font-family: Helvetica, Arial, sans-serif;
+    }
 
-  /* --- OFF 상태 --- */
-  .toggle.off {
-    background-image: url("toggle_off.png");
-  }
-  .toggle.off:active {
-    background-image: url("toggle_off_press.png");
-  }
+    /* 실제 디자인 영역 */
+    .stage {
+      position: relative;
+      width: 1280px;
+      height: 720px;           /* 여기 안에서만 배치 → 밑이 안 잘림 */
+      background: #f23b8f;     /* 핫핑크 캔버스 */
+      overflow: hidden;
+    }
 
-  /* --- ON 상태 --- */
-  .toggle.on {
-    background-image: url("toggle_on.png");
-  }
-  .toggle.on:active {
-    background-image: url("toggle_on_press.png");
-  }
+    .toggle {
+      position: absolute;
+      width: 220px;            /* 이미지 크기에 맞추기 */
+      height: 80px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      transition: background-image 0.12s ease;
+    }
 
-</style>
+    /* OFF 상태 */
+    .toggle.off {
+      background-image: url("toggle_off.png");
+    }
+    .toggle.off:active {
+      background-image: url("toggle_off_press.png");
+    }
+
+    /* ON 상태 */
+    .toggle.on {
+      background-image: url("toggle_on.png");
+    }
+    .toggle.on:active {
+      background-image: url("toggle_on_press.png");
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- 원하는 위치에 그대로 배치한 토글들 -->
-<div class="toggle off" style="top: 6%; left: 60%;"></div>
-<div class="toggle off" style="top: 20%; left: 15%;"></div>
-<div class="toggle on"  style="top: 25%; left: 72%;"></div>
-<div class="toggle on"  style="top: 45%; left: 30%;"></div>
-<div class="toggle on"  style="top: 60%; left: 10%;"></div>
-<div class="toggle off" style="top: 70%; left: 65%;"></div>
-<div class="toggle on"  style="top: 75%; left: 35%;"></div>
+  <div class="stage">
+    <!-- 위치는 스크린샷 비슷하게 px로 맞춰둔 값 -->
+    <div class="toggle off" style="top: 110px; left: 530px;"></div> <!-- 위 중앙 -->
+    <div class="toggle on"  style="top: 120px; left: 950px;"></div> <!-- 위 오른쪽 -->
 
-<script>
-  /* 모든 토글 요소 가져오기 */
-  const toggles = document.querySelectorAll(".toggle");
+    <div class="toggle on"  style="top: 260px; left: 170px;"></div> <!-- 중간 왼쪽 -->
+    <div class="toggle on"  style="top: 290px; left: 770px;"></div> <!-- 중간 오른쪽 -->
 
-  toggles.forEach(toggle => {
-    toggle.addEventListener("click", () => {
-      if (toggle.classList.contains("off")) {
-        toggle.classList.remove("off");
-        toggle.classList.add("on");
-      } else {
-        toggle.classList.remove("on");
-        toggle.classList.add("off");
-      }
+    <div class="toggle on"  style="top: 420px; left: 500px;"></div> <!-- 가운데 아래 -->
+    <div class="toggle on"  style="top: 550px; left: 180px;"></div> <!-- 아래 왼쪽 -->
+    <div class="toggle on"  style="top: 560px; left: 890px;"></div> <!-- 아래 오른쪽 -->
+  </div>
+
+  <script>
+    const toggles = document.querySelectorAll(".toggle");
+
+    toggles.forEach(toggle => {
+      toggle.addEventListener("click", () => {
+        if (toggle.classList.contains("off")) {
+          toggle.classList.remove("off");
+          toggle.classList.add("on");
+        } else {
+          toggle.classList.remove("on");
+          toggle.classList.add("off");
+        }
+      });
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
 
