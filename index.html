@@ -15,6 +15,7 @@
       margin: 0;
     }
 
+    /* 🔥 밑줄 제거 + 텍스트 검정색 */
     a {
       text-decoration: none;
       color: black;
@@ -42,29 +43,37 @@
       color: black;
       font-size: 20px;
       cursor: pointer;
+      transition: background 0.2s;
     }
 
-    .box:hover, h1:hover {
+    /* 기본 hover (1번 제외) */
+    .box:hover:not(.box1) {
       background: #f0f0f0;
     }
 
-    /* ✨ 1번 박스 색상 커스텀 */
+    /* ✨ 1번 박스 커스텀 */
     .box1 {
-      border-color: #9fc9ff;
-      background-color: #4b2627;
-      color: #9fc9ff;
+      border-color: #9fc9ff;       /* 테두리 */
+      background-color: #4b2627;   /* 기본 배경 */
+      color: #9fc9ff;              /* 숫자 색 */
+    }
+
+    /* ✨ 1번 박스 hover 시 (살짝 더 연한 톤) */
+    .box1:hover {
+      background-color: #6d3a3b;
     }
   </style>
 </head>
 
 <body>
+
   <a href="page2.html?screen=1">
     <h1>Things I Forgot to Do</h1>
   </a>
 
   <div class="grid">
 
-    <!-- 1번 박스만 클래스를 box1 로 설정 -->
+    <!-- ✨ 1번 박스 특별 스타일 적용 -->
     <a class="box box1" href="page2.html?screen=1">1</a>
 
     <a class="box" href="page3.html">2</a>
@@ -78,6 +87,7 @@
     <a class="box" href="page11.html">10</a>
 
   </div>
+
 </body>
 </html>
 
