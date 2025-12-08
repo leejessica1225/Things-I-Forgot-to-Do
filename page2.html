@@ -61,18 +61,18 @@
     }
 
     /* 펼쳐지는 리스트 */
-  .dropdown-list {
-  display: none;
-  position: absolute;
-  left: -2px;
-  right: -2px;
-  top: 100%;
-  border: 2px solid #89c2ff;
-  border-top: none;
-  background-color: #4b2627;
-  box-sizing: border-box;
-  z-index: 9999;   /* ← 이것만 추가하면 해결! */
-}
+    .dropdown-list {
+      display: none;
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 100%;
+      border: 2px solid #89c2ff;
+      border-top: none;
+      background-color: #4b2627;
+      box-sizing: border-box;
+      z-index: 9999; 
+    }
 
     .dropdown-item {
       padding: 14px 18px;
@@ -85,8 +85,8 @@
 
     /* hover 때 색 변하는 부분 */
     .dropdown-item:hover {
-      background-color: #9fc9ff; /* 연한 파란색 */
-      color: #4b2627;           /* 글자색은 진한 브라운 */
+      background-color: #9fc9ff;
+      color: #4b2627;
     }
 
     /* 열렸을 때 */
@@ -95,12 +95,34 @@
     }
 
     .dropdown.open .dropdown-arrow {
-      transform: rotate(180deg); /* 화살표 위로 */
+      transform: rotate(180deg);
+    }
+
+    /* 🔥 오른쪽 하단 next 버튼 */
+    .next-page-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      font-size: 45px;
+      color: #89c2ff;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.2s;
+    }
+
+    .next-page-btn:hover {
+      color: white;
+      transform: scale(1.25);
     }
   </style>
 </head>
 <body>
+
+  <!-- 🔽 오른쪽 하단 화살표 버튼 -->
+  <div class="next-page-btn">➜</div>
+
   <div class="wrapper">
+
     <!-- (date) -->
     <div class="dropdown date" data-placeholder="(date)">
       <div class="dropdown-header">
@@ -172,6 +194,7 @@
         <div class="dropdown-item">single</div>
       </div>
     </div>
+
   </div>
 
   <script>
@@ -179,35 +202,33 @@
     document.querySelectorAll('.dropdown').forEach(dropdown => {
       const label = dropdown.querySelector('.dropdown-label');
       const items = dropdown.querySelectorAll('.dropdown-item');
-      const placeholder = dropdown.dataset.placeholder;
 
-      // 박스를 클릭하면 해당 드롭다운만 토글 (다른 것들은 그대로)
       dropdown.addEventListener('click', (e) => {
-        // 리스트 아이템 클릭은 여기서 처리하지 않음
         if (e.target.classList.contains('dropdown-item')) return;
-
         dropdown.classList.toggle('open');
       });
 
-      // 아이템 클릭하면 선택 + 박스 색 변경 + 닫기
       items.forEach(item => {
         item.addEventListener('click', () => {
-          label.textContent = item.textContent;      // 선택한 값으로 라벨 변경
-          dropdown.classList.add('selected');        // 박스 파란색으로
-          dropdown.classList.remove('open');         // 리스트 닫기
-
-          // 항상 (date) 처럼 placeholder만 보이고 싶으면 위 라벨 변경 대신:
-          // label.textContent = placeholder;
+          label.textContent = item.textContent;
+          dropdown.classList.add('selected');
+          dropdown.classList.remove('open');
         });
       });
     });
 
-    // 바깥 영역 클릭하면 전부 닫기 (색은 유지)
+    // 바깥 클릭 시 드롭다운 닫기
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.dropdown')) {
         document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
       }
     });
+
+    // 🔥 오른쪽 하단 버튼 → page3.html 이동
+    document.querySelector('.next-page-btn').addEventListener('click', () => {
+      window.location.href = "page3.html";
+    });
   </script>
+
 </body>
 </html>
