@@ -1,36 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prototype Page</title>
+  <title>Custom Dropdowns</title>
   <style>
-    html, body {
+    body {
       margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+      height: 100vh;
+      background-color: #4b2627; /* 와인색 배경 */
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .wrapper {
+      position: relative;
+      width: 1100px;
+      height: 550px;
+    }
+
+    /* 공통 드롭다운 박스 스타일 */
+    .dropdown {
+      position: absolute;
+      width: 320px;
+      border: 2px solid #89c2ff;
+      color: #89c2ff;
+      padding: 14px 18px;
+      font-size: 24px;
+      cursor: pointer;
+      box-sizing: border-box;
+      background-color: transparent;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    /* 선택된 박스(옵션 클릭 후) */
+    .dropdown.selected {
+      background-color: #9fc9ff; /* 연파랑 */
+      color: #4b2627;            /* 글자 진한 브라운 */
+    }
+
+    /* 위치 (이미지 비슷하게 배치) */
+    .dropdown.date { top: 80px; left: 80px; }
+    .dropdown.time { top: 80px; right: 80px; }
+    .dropdown.reasons { top: 220px; left: 390px; width: 360px; }
+    .dropdown.location { bottom: 80px; left: 140px; width: 340px; }
+    .dropdown.session { bottom: 80px; right: 80px; width: 380px; }
+
+    .dropdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none; /* 클릭 이벤트는 부모(.dropdown)에서 처리 */
+    }
+
+    .dropdown-arrow {
+      font-size: 20px;
+      margin-left: 15px;
+      transition: transform 0.15s;
+    }
+
+    /* 펼쳐지는 리스트 */
+    .dropdown-list {
+      display: none;
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      top: 100%;
+      border: 2px solid #89c2ff;
+      border-top: none;
+      background-color: #4b2627;
+      box-sizing: border-box;
+      z-index: 50;
+    }
+
+    .dropdown-item {
+      padding: 14px 18px;
+      border-top: 2px solid #89c2ff;
+      font-size: 22px;
+      color: #89c2ff;
+      background-color: #4b2627;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    /* hover 때 색 변하는 부분 */
+    .dropdown-item:hover {
+      background-color: #9fc9ff; /* 연한 파란색 */
+      color: #4b2627;           /* 글자색은 진한 브라운 */
+    }
+
+    /* 열렸을 때 */
+    .dropdown.open .dropdown-list {
+      display: block;
+    }
+
+    .dropdown.open .dropdown-arrow {
+      transform: rotate(180deg); /* 화살표 위로 */
     }
   </style>
 </head>
 <body>
-  <iframe
-    id="figmaFrame"
-    style="border: none;"
-    width="100%"
-    height="100%">
-  </iframe>
+  <div class="wrapper">
+    <!-- (date) -->
+    <div class="dropdown date" data-placeholder="(date)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(date)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">monday</div>
+        <div class="dropdown-item">tuesday</div>
+        <div class="dropdown-item">wednesday</div>
+        <div class="dropdown-item">thursday</div>
+        <div class="dropdown-item">friday</div>
+        <div class="dropdown-item">saturday</div>
+      </div>
+    </div>
+
+    <!-- (time) -->
+    <div class="dropdown time" data-placeholder="(time)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(time)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">10:00 am - 10:20 am</div>
+        <div class="dropdown-item">10:20 am - 10:40 am</div>
+        <div class="dropdown-item">10:40 am - 11:00 am</div>
+        <div class="dropdown-item">11:00 am - 11:20 am</div>
+        <div class="dropdown-item">11:20 am - 11:40 am</div>
+        <div class="dropdown-item">12:00 am - 12:20 am</div>
+        <div class="dropdown-item">12:40 pm - 1:00 pm</div>
+      </div>
+    </div>
+
+    <!-- (reasons) -->
+    <div class="dropdown reasons" data-placeholder="(reasons)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(reasons)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">academic concerns</div>
+        <div class="dropdown-item">registration</div>
+        <div class="dropdown-item">study abroad</div>
+        <div class="dropdown-item">personal concerns</div>
+        <div class="dropdown-item">other</div>
+      </div>
+    </div>
+
+    <!-- (location) -->
+    <div class="dropdown location" data-placeholder="(location)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(location)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">zoom</div>
+        <div class="dropdown-item">6 E 16th St</div>
+      </div>
+    </div>
+
+    <!-- (session types) -->
+    <div class="dropdown session" data-placeholder="(session types)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(session types)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">group</div>
+        <div class="dropdown-item">single</div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const screen = urlParams.get('screen');
+    // 드롭다운 동작 설정
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+      const label = dropdown.querySelector('.dropdown-label');
+      const items = dropdown.querySelectorAll('.dropdown-item');
+      const placeholder = dropdown.dataset.placeholder;
 
-    const figmaLinks = {
-      1: "https://embed.figma.com/design/JqiiPOLF5Ev82Vd9KYxWB2/Entry-1?node-id=1-2&embed-host=share"
-    };
+      // 박스를 클릭하면 해당 드롭다운만 토글 (다른 것들은 그대로)
+      dropdown.addEventListener('click', (e) => {
+        // 리스트 아이템 클릭은 여기서 처리하지 않음
+        if (e.target.classList.contains('dropdown-item')) return;
 
-    document.getElementById("figmaFrame").src = figmaLinks[screen];
+        dropdown.classList.toggle('open');
+      });
+
+      // 아이템 클릭하면 선택 + 박스 색 변경 + 닫기
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          label.textContent = item.textContent;      // 선택한 값으로 라벨 변경
+          dropdown.classList.add('selected');        // 박스 파란색으로
+          dropdown.classList.remove('open');         // 리스트 닫기
+
+          // 항상 (date) 처럼 placeholder만 보이고 싶으면 위 라벨 변경 대신:
+          // label.textContent = placeholder;
+        });
+      });
+    });
+
+    // 바깥 영역 클릭하면 전부 닫기 (색은 유지)
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+      }
+    });
   </script>
 </body>
 </html>
