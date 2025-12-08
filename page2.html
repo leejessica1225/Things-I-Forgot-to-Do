@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prototype Page</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <iframe
+    id="figmaFrame"
+    style="border: none;"
+    width="100%"
+    height="100%">
+  </iframe>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const screen = urlParams.get('screen');
+
+    const figmaLinks = {
+      1: "https://embed.figma.com/design/JqiiPOLF5Ev82Vd9KYxWB2/Entry-1?node-id=1-2&embed-host=share"
+    };
+
+    document.getElementById("figmaFrame").src = figmaLinks[screen];
+  </script>
+</body>
+</html>
