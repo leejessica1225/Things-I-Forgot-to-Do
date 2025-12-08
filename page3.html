@@ -1,224 +1,68 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>toggle switches</title>
+  <meta charset="UTF-8">
+  <title>Toggle Switch</title>
+
   <style>
-    :root {
-      --bg-pink: #ff2fa5;
-      --cream:   #fceccf;
-    }
-
-    * { box-sizing: border-box; }
-
     body {
-      margin: 0;
-      height: 100vh;
-      background: var(--bg-pink);
-      font-family: Helvetica, Arial, sans-serif;
+      background: #fdfdfd;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
     }
-
-    .wrapper {
-      position: relative;
-      width: 1100px;
-      height: 650px;
-    }
-
-    /* ===== 공통 토글 모양 (작은 스위치) ===== */
 
     .toggle {
-      position: absolute;
-      width: 260px;
-      height: 70px;
-      border-radius: 999px;
-      border: 3px solid var(--cream);
-      overflow: visible;
-      color: var(--cream);
-      font-size: 26px;
-    }
-
-    .toggle-track {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-    }
-
-    .label-on,
-    .label-off {
-      position: relative;
-      z-index: 1;
+      width: 200px;          /* 이미지 너비 */
+      height: 80px;          /* 이미지 높이 */
+      background-size: cover;
+      background-repeat: no-repeat;
       cursor: pointer;
+      transition: background-image 0.12s ease;
+      user-select: none;     /* 드래그 방지 */
     }
 
-    .label-on {
-      margin-left: 50px; /* 왼쪽에서 조금 떨어지게 */
+    /* OFF 기본 상태 */
+    .toggle.off {
+      background-image: url("toggle_off.png");
     }
 
-    /* 동그란 노브 */
-    .toggle-knob {
-      position: absolute;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      font-weight: 400;
-      color: var(--bg-pink);
-      cursor: pointer;
-      top: 3px;
-      left: 3px;          /* on 상태: 왼쪽 */
-      transition: left 0.25s ease-in-out;
+    /* OFF 눌린 상태 */
+    .toggle.off:active {
+      background-image: url("toggle_off_press.png");
     }
 
-    /* off 상태일 때 오른쪽으로 이동 */
-    .toggle.is-off .toggle-knob {
-      left: calc(100% - 64px - 3px);
+    /* ON 기본 상태 */
+    .toggle.on {
+      background-image: url("toggle_on.png");
     }
 
-    .toggle-knob span {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      transition: opacity 0.15s ease;
+    /* ON 눌린 상태 */
+    .toggle.on:active {
+      background-image: url("toggle_on_press.png");
     }
-
-    .knob-text-on  { opacity: 1; }
-    .knob-text-off { opacity: 0; }
-
-    .toggle.is-off .knob-text-on  { opacity: 0; }
-    .toggle.is-off .knob-text-off { opacity: 1; }
-
-    /* ===== 위치 – 서로 안 겹치게, 레퍼런스 비슷하게 배치 ===== */
-
-    .t1 { top: 110px; left: 140px; }
-    .t2 { top: 110px; right: 140px; }
-
-    .t3 { top: 260px; left: 200px; }
-    .t4 { top: 260px; right: 200px; }
-
-    .t5 { bottom: 130px; left: 170px; }
-    .t6 { bottom: 130px; right: 170px; }
-
-    /* 오른쪽 아래 화살표 */
-    .next-arrow {
-      position: fixed;
-      bottom: 35px;
-      right: 40px;
-      font-size: 45px;
-      color: var(--cream);
-      text-decoration: none;
-      cursor: pointer;
-      user-select: none;
-      transition: opacity 0.2s ease;
-    }
-    .next-arrow:hover { opacity: 0.6; }
   </style>
 </head>
+
 <body>
-  <div class="wrapper">
 
-    <!-- 필요에 따라 is-off를 붙여서 시작 상태 조절 -->
-    <div class="toggle t1">
-      <div class="toggle-track">
-        <div class="label-on">on</div>
-        <div class="label-off">off</div>
-        <div class="toggle-knob">
-          <span class="knob-text-on">on</span>
-          <span class="knob-text-off">off</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="toggle t2 is-off">
-      <div class="toggle-track">
-        <div class="label-on">on</div>
-        <div class="label-off">off</div>
-        <div class="toggle-knob">
-          <span class="knob-text-on">on</span>
-          <span class="knob-text-off">off</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="toggle t3">
-      <div class="toggle-track">
-        <div class="label-on">on</div>
-        <div class="label-off">off</div>
-        <div class="toggle-knob">
-          <span class="knob-text-on">on</span>
-          <span class="knob-text-off">off</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="toggle t4 is-off">
-      <div class="toggle-track">
-        <div class="label-on">on</div>
-        <div class="label-off">off</div>
-        <div class="toggle-knob">
-          <span class="knob-text-on">on</span>
-          <span class="knob-text-off">off</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="toggle t5">
-      <div class="toggle-track">
-        <div class="label-on">on</div>
-        <div class="label-off">off</div>
-        <div class="toggle-knob">
-          <span class="knob-text-on">on</span>
-          <span class="knob-text-off">off</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="toggle t6 is-off">
-      <div class="toggle-track">
-        <div class="label-on">on</div>
-        <div class="label-off">off</div>
-        <div class="toggle-knob">
-          <span class="knob-text-on">on</span>
-          <span class="knob-text-off">off</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- 다음 페이지로 -->
-  <a class="next-arrow" href="page4.html">→</a>
+  <div id="toggle" class="toggle off"></div>
 
   <script>
-    // 각 토글 on/off 전환
-    document.querySelectorAll('.toggle').forEach(toggle => {
-      const knob     = toggle.querySelector('.toggle-knob');
-      const labelOn  = toggle.querySelector('.label-on');
-      const labelOff = toggle.querySelector('.label-off');
+    const toggle = document.getElementById("toggle");
 
-      function toggleState() {
-        toggle.classList.toggle('is-off');
+    toggle.addEventListener("click", () => {
+      if (toggle.classList.contains("off")) {
+        toggle.classList.remove("off");
+        toggle.classList.add("on");
+      } else {
+        toggle.classList.remove("on");
+        toggle.classList.add("off");
       }
-
-      [knob, labelOn, labelOff].forEach(el => {
-        el.addEventListener('click', e => {
-          e.stopPropagation();
-          toggleState();
-        });
-      });
     });
   </script>
+
 </body>
 </html>
 
