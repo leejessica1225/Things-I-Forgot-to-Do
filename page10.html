@@ -34,7 +34,7 @@
       margin-bottom: 120px;
     }
 
-    /* 공통 버튼 스타일 (높이 고정해서 정렬 쉽게) */
+    /* 공통 버튼 스타일 */
     .button-rect {
       background: #4d332f;
       color: #f7d53a;
@@ -47,47 +47,29 @@
       justify-content: center;
     }
 
-    /* 위 줄: powerwash / normal / delicates / start */
-    .top-row {
-      display: flex;
-      justify-content: center;
-      align-items: center; /* delicates 중앙 기준으로 start 동그라미 중앙 정렬 */
-      gap: 60px;
-      margin-bottom: 70px; /* 아래 줄과의 간격 (동그라미 아래선 ≒ extra rinse 아래선) */
-    }
-
-    .top-buttons {
-      display: flex;
-      gap: 60px;
-    }
-
-    /* start + 동그라미 */
-    .start-block {
-      display: flex;
-      flex-direction: column;
+    /* ======= 그리드 레이아웃 ======= */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);  /* powerwash / normal / delicates */
+      grid-template-rows: auto auto auto;     /* 위버튼 / options / 아래버튼 */
+      column-gap: 60px;
+      row-gap: 55px;
       align-items: center;
-      gap: 8px;
-      margin-left: 30px;
+      justify-items: center;
     }
 
-    .start-text {
-      font-size: 30px;
-    }
+    /* 각 요소 그리드 위치 지정 */
 
-    #startButton {
-      width: 112px;
-      height: 112px;
-      border-radius: 50%;
-      background: #4d332f;
-      cursor: pointer;
-    }
+    .btn-powerwash { grid-column: 1; grid-row: 1; }
+    .btn-normal    { grid-column: 2; grid-row: 1; }
+    .btn-delicates { grid-column: 3; grid-row: 1; }
 
-    /* options 라벨 줄: 위/아래 버튼들 사이의 중간 높이 */
     .options-wrapper {
+      grid-column: 1 / span 3;  /* 세 칼럼 전체 중앙 */
+      grid-row: 2;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 30px;
     }
 
     .options-line {
@@ -101,15 +83,30 @@
       font-size: 28px;
     }
 
-    /* 아래 줄: temperature / extra rinse (normal 밑에) / 빈칸(정렬용) */
-    .bottom-row {
+    .btn-temperature { grid-column: 1; grid-row: 3; }
+    .btn-extra       { grid-column: 2; grid-row: 3; }
+
+    /* start + 동그라미: delicates와 같은 column, extra rinse와 같은 row(아랫선 정렬) */
+    .start-block {
+      grid-column: 3;
+      grid-row: 3;
+      align-self: end;               /* extra rinse와 바닥선 맞추기 */
       display: flex;
-      justify-content: center;
-      gap: 60px;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
     }
 
-    .button-rect.spacer {
-      visibility: hidden; /* 세 번째 컬럼 자리만 맞추는 용도 */
+    .start-text {
+      font-size: 30px;
+    }
+
+    #startButton {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: #4d332f;
+      cursor: pointer;
     }
 
     /* ======= 2번째 화면 ======= */
@@ -140,32 +137,28 @@
     <div class="content">
       <div class="title">washer</div>
 
-      <!-- 위 줄 -->
-      <div class="top-row">
-        <div class="top-buttons">
-          <div class="button-rect">powerwash</div>
-          <div class="button-rect">normal</div>
-          <div class="button-rect">delicates</div>
+      <div class="grid">
+        <!-- 위 줄 버튼들 -->
+        <div class="button-rect btn-powerwash">powerwash</div>
+        <div class="button-rect btn-normal">normal</div>
+        <div class="button-rect btn-delicates">delicates</div>
+
+        <!-- options + 선 (중간 줄) -->
+        <div class="options-wrapper">
+          <div class="options-line"></div>
+          <div class="options-label">options</div>
+          <div class="options-line"></div>
         </div>
 
+        <!-- 아래 줄 버튼들 -->
+        <div class="button-rect btn-temperature">temperature</div>
+        <div class="button-rect btn-extra">extra rinse</div>
+
+        <!-- start + 동그라미 (delicates와 같은 column, extra rinse와 같은 row) -->
         <div class="start-block">
           <div class="start-text">start</div>
           <div id="startButton"></div>
         </div>
-      </div>
-
-      <!-- options 라벨 -->
-      <div class="options-wrapper">
-        <div class="options-line"></div>
-        <div class="options-label">options</div>
-        <div class="options-line"></div>
-      </div>
-
-      <!-- 아래 줄 -->
-      <div class="bottom-row">
-        <div class="button-rect">temperature</div>
-        <div class="button-rect">extra rinse</div>  <!-- normal 밑에 위치 -->
-        <div class="button-rect spacer">spacer</div>
       </div>
     </div>
   </div>
@@ -217,6 +210,7 @@
   </script>
 </body>
 </html>
+
 
 
 
