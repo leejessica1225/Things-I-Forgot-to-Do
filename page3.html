@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>Toggle Scene</title>
+  <title>Pink Ivory Toggles</title>
   <style>
+    :root {
+      --pink: #f23b8f;
+      --ivory: #fbe8d2;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -14,78 +19,178 @@
       height: 100%;
     }
 
-    /* 화면 중앙에 캔버스(stage) 넣기 */
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #000; /* 바깥 배경 (원하면 #f23b8f 로 바꿔도 됨) */
-      overflow: auto;
+      background: var(--pink);
       font-family: Helvetica, Arial, sans-serif;
-    }
-
-    /* 실제 디자인 영역 */
-    .stage {
-      position: relative;
-      width: 1280px;
-      height: 720px;           /* 여기 안에서만 배치 → 밑이 안 잘림 */
-      background: #f23b8f;     /* 핫핑크 캔버스 */
       overflow: hidden;
     }
 
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* 공통 토글 스타일 */
     .toggle {
       position: absolute;
-      width: 220px;            /* 이미지 크기에 맞추기 */
+      width: 220px;
       height: 80px;
-      background-size: cover;
-      background-repeat: no-repeat;
+      border-radius: 40px;
+      border: 3px solid var(--ivory);
+      background: transparent;
       cursor: pointer;
-      transition: background-image 0.12s ease;
+      padding: 0;
+      outline: none;
     }
 
-    /* OFF 상태 */
-    .toggle.off {
-      background-image: url("toggle_off.png");
-    }
-    .toggle.off:active {
-      background-image: url("toggle_off_press.png");
+    .toggle:active {
+      transform: translateY(1px);
     }
 
-    /* ON 상태 */
-    .toggle.on {
-      background-image: url("toggle_on.png");
+    .track-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 30px;
+      color: var(--ivory);
+      pointer-events: none;
+      transition: opacity 0.2s ease;
     }
-    .toggle.on:active {
-      background-image: url("toggle_on_press.png");
+
+    .track-on {
+      left: 26px;
     }
+
+    .track-off {
+      right: 26px;
+    }
+
+    .knob {
+      position: absolute;
+      top: 50%;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--ivory);
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: left 0.25s ease;
+    }
+
+    .knob-text {
+      position: absolute;
+      font-size: 30px;
+      color: var(--pink);
+      transition: opacity 0.2s ease;
+    }
+
+    /* ON / OFF 상태에 따라 위치, 텍스트 바꾸기 */
+    .toggle.is-on .knob {
+      left: 8px;
+    }
+
+    .toggle.is-off .knob {
+      left: calc(100% - 8px - 80px);
+    }
+
+    .toggle.is-on .knob-on  { opacity: 1; }
+    .toggle.is-on .knob-off { opacity: 0; }
+    .toggle.is-off .knob-on  { opacity: 0; }
+    .toggle.is-off .knob-off { opacity: 1; }
+
+    .toggle.is-on  .track-on  { opacity: 0; }
+    .toggle.is-on  .track-off { opacity: 1; }
+    .toggle.is-off .track-on  { opacity: 1; }
+    .toggle.is-off .track-off { opacity: 0; }
   </style>
 </head>
 <body>
+  <div class="scene">
+    <!-- 위 가운데 OFF -->
+    <button class="toggle is-off" style="top: 12%; left: 40%;">
+      <span class="track-label track-on">on</span>
+      <span class="track-label track-off">off</span>
+      <span class="knob">
+        <span class="knob-text knob-on">on</span>
+        <span class="knob-text knob-off">off</span>
+      </span>
+    </button>
 
-  <div class="stage">
-    <!-- 위치는 스크린샷 비슷하게 px로 맞춰둔 값 -->
-    <div class="toggle off" style="top: 110px; left: 530px;"></div> <!-- 위 중앙 -->
-    <div class="toggle on"  style="top: 120px; left: 950px;"></div> <!-- 위 오른쪽 -->
+    <!-- 위 오른쪽 ON -->
+    <button class="toggle is-on" style="top: 18%; right: 10%;">
+      <span class="track-label track-on">on</span>
+      <span class="track-label track-off">off</span>
+      <span class="knob">
+        <span class="knob-text knob-on">on</span>
+        <span class="knob-text knob-off">off</span>
+      </span>
+    </button>
 
-    <div class="toggle on"  style="top: 260px; left: 170px;"></div> <!-- 중간 왼쪽 -->
-    <div class="toggle on"  style="top: 290px; left: 770px;"></div> <!-- 중간 오른쪽 -->
+    <!-- 중간 왼쪽 ON -->
+    <button class="toggle is-on" style="top: 35%; left: 12%;">
+      <span class="track-label track-on">on</span>
+      <span class="track-label track-off">off</span>
+      <span class="knob">
+        <span class="knob-text knob-on">on</span>
+        <span class="knob-text knob-off">off</span>
+      </span>
+    </button>
 
-    <div class="toggle on"  style="top: 420px; left: 500px;"></div> <!-- 가운데 아래 -->
-    <div class="toggle on"  style="top: 550px; left: 180px;"></div> <!-- 아래 왼쪽 -->
-    <div class="toggle on"  style="top: 560px; left: 890px;"></div> <!-- 아래 오른쪽 -->
+    <!-- 중간 오른쪽 ON -->
+    <button class="toggle is-on" style="top: 38%; right: 15%;">
+      <span class="track-label track-on">on</span>
+      <span class="track-label track-off">off</span>
+      <span class="knob">
+        <span class="knob-text knob-on">on</span>
+        <span class="knob-text knob-off">off</span>
+      </span>
+    </button>
+
+    <!-- 가운데 아래 ON -->
+    <button class="toggle is-on" style="top: 55%; left: 42%;">
+      <span class="track-label track-on">on</span>
+      <span class="track-label track-off">off</span>
+      <span class="knob">
+        <span class="knob-text knob-on">on</span>
+        <span class="knob-text knob-off">off</span>
+      </span>
+    </button>
+
+    <!-- 아래 왼쪽 ON -->
+    <button class="toggle is-on" style="top: 72%; left: 14%;">
+      <span class="track-label track-on">on</span>
+      <span class="track-label track-off">off</span>
+      <span class="knob">
+        <span class="knob-text knob-on">on</span>
+        <span class="knob-text knob-off">off</span>
+      </span>
+    </button>
+
+    <!-- 아래 오른쪽 ON -->
+    <button class="toggle is-on" style="top: 74%; right: 14%;">
+      <span class="track-label track-on">on</span>
+      <span class="track-label track-off">off</span>
+      <span class="knob">
+        <span class="knob-text knob-on">on</span>
+        <span class="knob-text knob-off">off</span>
+      </span>
+    </button>
   </div>
 
   <script>
-    const toggles = document.querySelectorAll(".toggle");
+    const toggles = document.querySelectorAll('.toggle');
 
     toggles.forEach(toggle => {
-      toggle.addEventListener("click", () => {
-        if (toggle.classList.contains("off")) {
-          toggle.classList.remove("off");
-          toggle.classList.add("on");
+      toggle.addEventListener('click', () => {
+        if (toggle.classList.contains('is-on')) {
+          toggle.classList.remove('is-on');
+          toggle.classList.add('is-off');
         } else {
-          toggle.classList.remove("on");
-          toggle.classList.add("off");
+          toggle.classList.remove('is-off');
+          toggle.classList.add('is-on');
         }
       });
     });
