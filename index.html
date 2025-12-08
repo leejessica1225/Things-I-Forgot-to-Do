@@ -15,7 +15,6 @@
       margin: 0;
     }
 
-    /* 🔥 추가된 부분: 모든 링크 밑줄 제거 + 글자색 검정 */
     a {
       text-decoration: none;
       color: black;
@@ -44,9 +43,16 @@
       font-size: 20px;
       cursor: pointer;
     }
-    
+
     .box:hover, h1:hover {
       background: #f0f0f0;
+    }
+
+    /* ✨ 1번 박스 색상 커스텀 */
+    .box1 {
+      border-color: #9fc9ff;
+      background-color: #4b2627;
+      color: #9fc9ff;
     }
   </style>
 </head>
@@ -57,7 +63,10 @@
   </a>
 
   <div class="grid">
-    <a class="box" href="page2.html?screen=1">1</a>
+
+    <!-- 1번 박스만 클래스를 box1 로 설정 -->
+    <a class="box box1" href="page2.html?screen=1">1</a>
+
     <a class="box" href="page3.html">2</a>
     <a class="box" href="page4.html">3</a>
     <a class="box" href="page5.html">4</a>
@@ -67,6 +76,7 @@
     <a class="box" href="page9.html">8</a>
     <a class="box" href="page10.html">9</a>
     <a class="box" href="page11.html">10</a>
+
   </div>
 </body>
 </html>
