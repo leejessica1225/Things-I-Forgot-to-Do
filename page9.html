@@ -1,196 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Destination</title>
-<style>
+  <meta charset="UTF-8">
+  <title>Elevator Selector</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-        margin: 0;
-        background: #A0AFB8;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #F4FF8A;
-        text-align: center;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #96a3ae; /* 회색-블루 */
     }
 
-    /* 상단 영역 */
+    /* ===== SCREEN 1 : 버튼 화면 ===== */
+    #screen1 {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      color: #f7ff86; /* 연노랑 텍스트 */
+      position: relative;
+    }
+
     .top-bar {
-        width: 100%;
-        padding: 25px 40px 10px;
-        display: flex;
-        justify-content: center;
-        position: relative;
+      position: relative;
+      height: 70px;
+      width: 100%;
     }
 
-    /* SVG globe */
+    /* 가운데 globe 아이콘 */
+    .globe {
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
     .globe svg {
-        width: 40px;
-        height: 40px;
-        fill: #F4FF8A;   /* 노란색 적용 */
+      width: 32px;
+      height: 32px;
+      fill: none;
+      stroke: #f7ff86;   /* 연노랑만 사용 */
+      stroke-width: 1.8;
     }
 
-    /* 날짜/시간 오른쪽 정렬 → 화면 안에 들어오도록 왼쪽 이동 */
-    .date-box {
-        position: absolute;
-        right: 100px;   /* ← 여기만 조절됨 */
-        top: 30px;
-        text-align: right;
-        font-size: 20px;
-        line-height: 22px;
-        color: #F4FF8A;
+    /* 날짜/시간 (오른쪽, 잘리지 않게 약간 안쪽으로) */
+    .date-time {
+      position: absolute;
+      right: 40px;
+      top: 14px;
+      text-align: right;
+      font-size: 20px;
+      line-height: 1.2;
+      color: #f7ff86;
     }
 
-    .top-line {
-        width: 100%;
-        height: 2px;
-        background: #F4FF8A;
-        margin-top: 25px;
-    }
-
-    .title {
-        margin-top: 35px;
-        font-size: 26px;
-    }
-
-    .grid {
-        margin-top: 40px;
-        display: flex;
-        flex-direction: column;
-        gap: 35px;
-        align-items: center;
-    }
-    .row {
-        display: flex;
-        gap: 40px;
-    }
-
-    .btn {
-        width: 130px;
-        height: 130px;
-        border-radius: 50%;
-        background: #F4FF8A;
-        color: #8BA19C;
-        border: none;
-        font-size: 40px;
-        cursor: pointer;
-        transition: 0.15s;
-    }
-    .btn:hover {
-        opacity: 0.8;
+    /* 상단, 하단 가로선 */
+    .top-line,
+    .bottom-line {
+      width: 100%;
+      border-top: 2px solid #f7ff86;
     }
 
     .bottom-line {
-        width: 100%;
-        height: 2px;
-        background: #F4FF8A;
-        margin-top: 45px;
+      margin-top: auto;
     }
 
-    .range-text {
-        margin-top: 15px;
-        font-size: 22px;
+    /* 가운데 내용 영역 */
+    .content-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 10px;
+      padding-bottom: 40px;
     }
 
-    /* 두 번째 화면 */
+    .title {
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+
+    /* 버튼 그리드 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 140px);
+      grid-row-gap: 40px;
+      grid-column-gap: 80px;
+      margin-bottom: 50px;
+    }
+
+    .circle-btn {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: #f5ff7c;   /* 연노랑 원 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #8d9aa4;              /* 회색 숫자 */
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
+
+    .range-label {
+      text-align: center;
+      font-size: 22px;
+      margin: 10px 0 20px;
+    }
+
+    /* ===== SCREEN 2 : take elevator X ===== */
     #screen2 {
-        display: none;
-        margin-top: 160px;
+      display: none;
+      height: 100vh;
+      background-color: #96a3ae;
+      color: #f7ff86;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    .take-text {
-        font-size: 55px;
-        margin-bottom: 20px;
+    #screen2 .take-text {
+      font-size: 64px;
+      margin-bottom: 40px;
     }
 
-    .big-number {
-        font-size: 160px;
-        font-weight: bold;
+    #screen2 .elevator-number {
+      font-size: 180px;
+      font-weight: normal;
     }
-</style>
+  </style>
 </head>
 <body>
 
-<!-- ------------------- SCREEN 1 ------------------- -->
-<div id="screen1">
+  <!-- ===== First Screen: Floor selection ===== -->
+  <div id="screen1">
     <div class="top-bar">
-
-        <!-- 아이콘을 SVG로 변경 (색 완벽 매칭됨) -->
-        <div class="globe">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10
-                10-4.48 10-10S17.52 2 12 2zm7.93 8h-3.02a15.09 15.09 0 0 0-1.4-5.01
-                8.04 8.04 0 0 1 4.42 5.01zM12 4c1.53 1.8 2.5 4.79
-                2.7 6H9.3c.2-1.21 1.17-4.2 2.7-6zm-6.93 8a8.04 8.04 0 0 1 4.42-5.01
-                15.09 15.09 0 0 0-1.4 5.01H5.07zm0 2h3.02c.2 1.21 1.17 4.2
-                2.7 6a8.04 8.04 0 0 1-5.72-6zm6.93 6c-1.53-1.8-2.5-4.79-2.7-6h5.4c-.2 1.21-1.17 4.2-2.7 6zm2.51-.99a15.09
-                15.09 0 0 0 1.4-5.01h3.02a8.04 8.04 0 0 1-4.42 5.01z"/>
-            </svg>
-        </div>
-
-        <div class="date-box">
-            tue, 11/11/2025<br>22:14
-        </div>
+      <div class="globe">
+        <!-- globe 아이콘 (연노랑 선만 사용) -->
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M3 12h18"></path>
+          <path d="M12 3a12 12 0 0 0 0 18"></path>
+          <path d="M12 3a12 12 0 0 1 0 18"></path>
+        </svg>
+      </div>
+      <div class="date-time">
+        <div>tue, 11/11/2025</div>
+        <div>22:14</div>
+      </div>
     </div>
 
     <div class="top-line"></div>
 
-    <div class="title">select your destination</div>
+    <div class="content-wrap">
+      <div class="title">select your destination</div>
 
-    <div class="grid">
-        <div class="row">
-            <button class="btn">9</button>
-            <button class="btn">10</button>
-            <button class="btn">11</button>
-            <button class="btn">12</button>
-        </div>
+      <!-- 9–12, 5–8, 1–4 순서 -->
+      <div class="grid">
+        <button class="circle-btn" data-floor="9">9</button>
+        <button class="circle-btn" data-floor="10">10</button>
+        <button class="circle-btn" data-floor="11">11</button>
+        <button class="circle-btn" data-floor="12">12</button>
 
-        <div class="row">
-            <button class="btn">5</button>
-            <button class="btn">6</button>
-            <button class="btn">7</button>
-            <button class="btn">8</button>
-        </div>
+        <button class="circle-btn" data-floor="5">5</button>
+        <button class="circle-btn" data-floor="6">6</button>
+        <button class="circle-btn" data-floor="7">7</button>
+        <button class="circle-btn" data-floor="8">8</button>
 
-        <div class="row">
-            <button class="btn">1</button>
-            <button class="btn">2</button>
-            <button class="btn">3</button>
-            <button class="btn">4</button>
-        </div>
+        <button class="circle-btn" data-floor="1">1</button>
+        <button class="circle-btn" data-floor="2">2</button>
+        <button class="circle-btn" data-floor="3">3</button>
+        <button class="circle-btn" data-floor="4">4</button>
+      </div>
+
+      <div class="range-label">1 - 12</div>
     </div>
 
     <div class="bottom-line"></div>
-    <div class="range-text">1 - 12</div>
-</div>
+  </div>
 
-<!-- ------------------- SCREEN 2 ------------------- -->
-<div id="screen2">
+  <!-- ===== Second Screen: take elevator X ===== -->
+  <div id="screen2">
     <div class="take-text">take elevator</div>
-    <div id="elevatorNumber" class="big-number"></div>
-</div>
+    <div id="elevatorNumber" class="elevator-number">3</div>
+  </div>
 
-<script>
-    const buttons = document.querySelectorAll(".btn");
-    const screen1 = document.getElementById("screen1");
-    const screen2 = document.getElementById("screen2");
-    const numberBox = document.getElementById("elevatorNumber");
+  <script>
+    const buttons = document.querySelectorAll('.circle-btn');
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+    const elevatorNumber = document.getElementById('elevatorNumber');
 
     buttons.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const num = btn.innerText;
+      btn.addEventListener('click', () => {
+        const floor = btn.getAttribute('data-floor');
+        elevatorNumber.textContent = floor;
 
-            screen1.style.display = "none";
-            screen2.style.display = "block";
+        // 첫 화면 숨기고 두 번째 화면 즉시 표시
+        screen1.style.display = 'none';
+        screen2.style.display = 'flex';
 
-            numberBox.textContent = num;
-
-            setTimeout(() => {
-                window.location.href = "page10.html";
-            }, 800);
-        });
+        // 800ms 후 page10.html 로 이동
+        setTimeout(() => {
+          window.location.href = 'page10.html';
+        }, 800);
+      });
     });
-</script>
+  </script>
 
 </body>
 </html>
+
 
 
