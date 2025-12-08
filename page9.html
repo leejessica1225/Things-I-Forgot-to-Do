@@ -1,221 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Elevator Selector</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<title>Destination Selector</title>
+<style>
+  body {
+    margin: 0;
+    background-color: #9aa7af;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background-color: #96a3ae; /* 회색-블루 */
-    }
+  .top-bar {
+    width: 100%;
+    height: 110px;
+    border-bottom: 3px solid #eef58a;
+    position: relative;
+  }
 
-    /* ===== SCREEN 1 : 버튼 화면 ===== */
-    #screen1 {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      color: #f7ff86; /* 연노랑 텍스트 */
-      position: relative;
-    }
+  .globe {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    fill: #eef58a;
+  }
 
-    .top-bar {
-      position: relative;
-      height: 70px;
-      width: 100%;
-    }
+  .datetime {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    text-align: right;
+    font-size: 22px;
+    color: #eef58a;
+    line-height: 1.2;
+  }
 
-    /* 가운데 globe 아이콘 */
-    .globe {
-      position: absolute;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
+  .title {
+    margin-top: 35px;
+    text-align: center;
+    font-size: 30px;
+    color: #eef58a;
+    font-weight: bold;
+  }
 
-    .globe svg {
-      width: 32px;
-      height: 32px;
-      fill: none;
-      stroke: #f7ff86;   /* 연노랑만 사용 */
-      stroke-width: 1.8;
-    }
+  .circle-grid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+  }
 
-    /* 날짜/시간 (오른쪽, 잘리지 않게 약간 안쪽으로) */
-    .date-time {
-      position: absolute;
-      right: 40px;
-      top: 14px;
-      text-align: right;
-      font-size: 20px;
-      line-height: 1.2;
-      color: #f7ff86;
-    }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 140px);
+    grid-row-gap: 35px;
+    grid-column-gap: 60px;
+  }
 
-    /* 상단, 하단 가로선 */
-    .top-line,
-    .bottom-line {
-      width: 100%;
-      border-top: 2px solid #f7ff86;
-    }
+  .circle-btn {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: #eef58a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #7d8b94;
+    font-size: 40px;
+    cursor: pointer;
+    user-select: none;
+  }
 
-    .bottom-line {
-      margin-top: auto;
-    }
+  .bottom-bar {
+    margin-top: 40px;
+    width: 100%;
+    border-top: 3px solid #eef58a;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 24px;
+    color: #eef58a;
+  }
 
-    /* 가운데 내용 영역 */
-    .content-wrap {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-top: 10px;
-      padding-bottom: 40px;
-    }
+  /* ---- SCREEN 2 ---- */
+  #screen2 {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: #9aa7af;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
 
-    .title {
-      font-size: 28px;
-      margin-bottom: 40px;
-    }
+  .take-text {
+    font-size: 60px;
+    color: #eef58a;
+    margin-bottom: 20px;
+  }
 
-    /* 버튼 그리드 */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 140px);
-      grid-row-gap: 40px;
-      grid-column-gap: 80px;
-      margin-bottom: 50px;
-    }
-
-    .circle-btn {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background-color: #f5ff7c;   /* 연노랑 원 */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      color: #8d9aa4;              /* 회색 숫자 */
-      cursor: pointer;
-      border: none;
-      outline: none;
-    }
-
-    .range-label {
-      text-align: center;
-      font-size: 22px;
-      margin: 10px 0 20px;
-    }
-
-    /* ===== SCREEN 2 : take elevator X ===== */
-    #screen2 {
-      display: none;
-      height: 100vh;
-      background-color: #96a3ae;
-      color: #f7ff86;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #screen2 .take-text {
-      font-size: 64px;
-      margin-bottom: 40px;
-    }
-
-    #screen2 .elevator-number {
-      font-size: 180px;
-      font-weight: normal;
-    }
-  </style>
+  .elevator-number {
+    font-size: 200px;
+    color: #eef58a;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
 
-  <!-- ===== First Screen: Floor selection ===== -->
-  <div id="screen1">
-    <div class="top-bar">
-      <div class="globe">
-        <!-- globe 아이콘 (연노랑 선만 사용) -->
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M3 12h18"></path>
-          <path d="M12 3a12 12 0 0 0 0 18"></path>
-          <path d="M12 3a12 12 0 0 1 0 18"></path>
-        </svg>
-      </div>
-      <div class="date-time">
-        <div>tue, 11/11/2025</div>
-        <div>22:14</div>
-      </div>
+<!-- SCREEN 1 -->
+<div id="screen1">
+  <div class="top-bar">
+    <svg class="globe" viewBox="0 0 24 24">
+      <path fill="#eef58a" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 
+      10-10S17.52 2 12 2zm6.93 6h-2.95a15.1 15.1 0 0 0-1.07-4.01A8.03 
+      8.03 0 0 1 18.93 8zM12 4c.83 1.2 1.48 2.77 1.82 4H10.18A12.48 
+      12.48 0 0 1 12 4zM4.26 14A7.93 7.93 0 0 1 4 12c0-.69.09-1.36.26-2h3.38a17.2 
+      17.2 0 0 0-.14 2c0 .68.05 1.35.14 2H4.26zm1.81 4h2.95a15.1 15.1 0 0 
+      0 1.07 4.01A8.03 8.03 0 0 1 6.07 18zm2.95-8H4.26a7.987 7.987 0 0 
+      1 1.81-4h2.95c-.45 1.27-.74 2.64-.9 4zm1.16 8h4.64c-.38 1.44-1.06 
+      2.93-2.32 4-1.26-1.07-1.94-2.56-2.32-4zm.32-4c-.1-.64-.16-1.31-.16-2 
+      0-.69.06-1.36.16-2h5.18c.1.64.16 1.31.16 2 0 .69-.06 1.36-.16 2H10.5zm1.57 
+      8a15.1 15.1 0 0 0 1.07-4.01h2.95a8.03 8.03 0 0 1-4.02 4.01zM14.89 
+      14c.09-.65.14-1.32.14-2 0-.68-.05-1.35-.14-2h3.38c.17.64.26 1.31.26 
+      2 0 .69-.09 1.36-.26 2h-3.38zm.57 8A15.1 15.1 0 0 0 16.53 18h2.95a8.03 
+      8.03 0 0 1-4.02 4z"/>
+    </svg>
+
+    <div class="datetime">
+      tue, 11/11/2025<br>22:14
     </div>
-
-    <div class="top-line"></div>
-
-    <div class="content-wrap">
-      <div class="title">select your destination</div>
-
-      <!-- 9–12, 5–8, 1–4 순서 -->
-      <div class="grid">
-        <button class="circle-btn" data-floor="9">9</button>
-        <button class="circle-btn" data-floor="10">10</button>
-        <button class="circle-btn" data-floor="11">11</button>
-        <button class="circle-btn" data-floor="12">12</button>
-
-        <button class="circle-btn" data-floor="5">5</button>
-        <button class="circle-btn" data-floor="6">6</button>
-        <button class="circle-btn" data-floor="7">7</button>
-        <button class="circle-btn" data-floor="8">8</button>
-
-        <button class="circle-btn" data-floor="1">1</button>
-        <button class="circle-btn" data-floor="2">2</button>
-        <button class="circle-btn" data-floor="3">3</button>
-        <button class="circle-btn" data-floor="4">4</button>
-      </div>
-
-      <div class="range-label">1 - 12</div>
-    </div>
-
-    <div class="bottom-line"></div>
   </div>
 
-  <!-- ===== Second Screen: take elevator X ===== -->
-  <div id="screen2">
-    <div class="take-text">take elevator</div>
-    <div id="elevatorNumber" class="elevator-number">3</div>
+  <div class="title">select your destination</div>
+
+  <div class="circle-grid">
+    <div class="grid">
+      <!-- 12 buttons -->
+      <div class="circle-btn">9</div>
+      <div class="circle-btn">10</div>
+      <div class="circle-btn">11</div>
+      <div class="circle-btn">12</div>
+      <div class="circle-btn">5</div>
+      <div class="circle-btn">6</div>
+      <div class="circle-btn">7</div>
+      <div class="circle-btn">8</div>
+      <div class="circle-btn">1</div>
+      <div class="circle-btn">2</div>
+      <div class="circle-btn">3</div>
+      <div class="circle-btn">4</div>
+    </div>
   </div>
 
-  <script>
-    const buttons = document.querySelectorAll('.circle-btn');
-    const screen1 = document.getElementById('screen1');
-    const screen2 = document.getElementById('screen2');
-    const elevatorNumber = document.getElementById('elevatorNumber');
+  <div class="bottom-bar">1 - 12</div>
+</div>
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const floor = btn.getAttribute('data-floor');
-        elevatorNumber.textContent = floor;
+<!-- SCREEN 2 -->
+<div id="screen2">
+  <div class="take-text">take elevator</div>
+  <div class="elevator-number" id="elevatorNumber">3</div>
+</div>
 
-        // 첫 화면 숨기고 두 번째 화면 즉시 표시
-        screen1.style.display = 'none';
-        screen2.style.display = 'flex';
+<script>
+  const buttons = document.querySelectorAll('.circle-btn');
+  const screen1 = document.getElementById('screen1');
+  const screen2 = document.getElementById('screen2');
+  const elevatorNumber = document.getElementById('elevatorNumber');
 
-        // 800ms 후 page10.html 로 이동
-        setTimeout(() => {
-          window.location.href = 'page10.html';
-        }, 800);
-      });
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+      // 1~3 중 랜덤 엘리베이터 선택
+      const randomElevator = Math.floor(Math.random() * 3) + 1;
+      elevatorNumber.textContent = randomElevator;
+
+      // 화면 전환
+      screen1.style.display = 'none';
+      screen2.style.display = 'flex';
+
+      // 800ms 후 page10으로 이동
+      setTimeout(() => {
+        window.location.href = "page10.html";
+      }, 800);
     });
-  </script>
+  });
+</script>
 
 </body>
 </html>
+
 
 
 
