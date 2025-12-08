@@ -1,202 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>Washer</title>
+  <title>washer</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      margin: 0;
+    html, body {
+      height: 100%;
       font-family: Helvetica, Arial, sans-serif;
-      background-color: #f5d743; /* 노란 배경 */
-      color: #4a2d29;            /* 갈색 텍스트 */
+      background: #f7d53a;   /* 노란색 배경 */
+      color: #4d332f;        /* 갈색 텍스트 */
     }
 
-    .page-wrap {
-      min-height: 100vh;
+    .screen {
+      width: 100vw;
+      height: 100vh;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      background: #f7d53a;
     }
 
-    .content {
-      width: 100%;
-      max-width: 1200px;
-      padding: 60px 80px 80px;
-    }
-
-    h1 {
-      margin: 0;
+    /* ======= 1번째 화면 ======= */
+    #screen1 .content {
+      width: 960px;
+      max-width: 960px;
       text-align: center;
-      font-size: 80px;
-      font-weight: 500;
     }
 
-    /* 공통 버튼 스타일 */
-    .btn-box {
-      width: 260px;
-      height: 90px;
-      background-color: #4a2d29;
-      color: #f5d743;
+    .title {
+      font-size: 64px;
+      margin-bottom: 120px;
+    }
+
+    .modes-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      cursor: default;
+      justify-content: space-between;
+      margin-bottom: 40px;
     }
 
-    /* ---------- SCREEN 1 ---------- */
-    #screen1 {
-      display: block;
-    }
-
-    #screen2 {
-      display: none;
-    }
-
-    .cycle-row {
-      margin-top: 80px;
+    .modes-buttons {
       display: flex;
-      justify-content: center;
-      gap: 80px;
+      gap: 60px;
+      margin-left: 40px;
     }
 
-    .options-row {
-      margin-top: 60px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      font-size: 40px;
+    .button-rect {
+      background: #4d332f;
+      color: #f7d53a;
+      padding: 22px 40px;
+      font-size: 30px;
+      border-radius: 2px;
+      min-width: 210px;
+      text-align: center;
     }
 
-    .options-row .line {
-      width: 180px;
-      height: 3px;
-      background-color: #4a2d29;
-    }
-
-    .options-start-row {
-      margin-top: 35px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 120px;
-    }
-
-    .option-buttons {
-      display: flex;
-      gap: 80px;
-    }
-
-    .start-group {
+    .start-block {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
-      font-size: 40px;
+      margin-right: 40px;
+      gap: 12px;
     }
 
-    .start-circle {
-      width: 140px;
-      height: 140px;
+    .start-text {
+      font-size: 30px;
+    }
+
+    #startButton {
+      width: 110px;
+      height: 110px;
       border-radius: 50%;
-      background-color: #4a2d29;
+      background: #4d332f;
       cursor: pointer;
     }
 
-    /* ---------- SCREEN 2 ---------- */
-
-    #timerScreen {
-      text-align: center;
-      margin-top: 200px;
+    .options-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 35px;
+      margin-top: 10px;
     }
 
-    #timerNumber {
-      font-size: 180px;
-      font-weight: 500;
-      margin-right: 10px;
+    .options-line {
+      width: 150px;
+      border-bottom: 2px solid #4d332f;
+      margin: 0 10px;
+      margin-top: 10px;
     }
 
-    #timerLabel {
-      font-size: 42px;
-      vertical-align: baseline;
+    .options-label {
+      font-size: 28px;
+    }
+
+    .options-buttons-row {
+      display: flex;
+      justify-content: center;
+      gap: 120px;
+    }
+
+    /* ======= 2번째 화면 ======= */
+    #screen2 {
+      display: none;
+      flex-direction: column;
+    }
+
+    .time-wrapper {
+      display: flex;
+      align-items: baseline;
+    }
+
+    #timeNumber {
+      font-size: 150px;
+      font-weight: 400;
+    }
+
+    .minutes-label {
+      font-size: 32px;
+      margin-left: 18px;
     }
   </style>
 </head>
 <body>
-  <div class="page-wrap">
+  <!-- 첫 번째 화면 -->
+  <div id="screen1" class="screen">
     <div class="content">
+      <div class="title">washer</div>
 
-      <!-- ========== SCREEN 1 ========== -->
-      <div id="screen1">
-        <h1>washer</h1>
-
-        <div class="cycle-row">
-          <div class="btn-box">powerwash</div>
-          <div class="btn-box">normal</div>
-          <div class="btn-box">delicates</div>
+      <div class="modes-row">
+        <div class="modes-buttons">
+          <div class="button-rect">powerwash</div>
+          <div class="button-rect">normal</div>
+          <div class="button-rect">delicates</div>
         </div>
 
-        <div class="options-row">
-          <div class="line"></div>
-          <div>options</div>
-          <div class="line"></div>
-        </div>
-
-        <div class="options-start-row">
-          <div class="option-buttons">
-            <div class="btn-box">temperature</div>
-            <div class="btn-box">extra rinse</div>
-          </div>
-
-          <div class="start-group">
-            <div>start</div>
-            <div class="start-circle" id="startBtn"></div>
-          </div>
+        <div class="start-block">
+          <div class="start-text">start</div>
+          <div id="startButton"></div>
         </div>
       </div>
 
-      <!-- ========== SCREEN 2 ========== -->
-      <div id="screen2">
-        <div id="timerScreen">
-          <span id="timerNumber">54</span>
-          <span id="timerLabel">minutes</span>
-        </div>
+      <div class="options-wrapper">
+        <div class="options-line"></div>
+        <div class="options-label">options</div>
+        <div class="options-line"></div>
       </div>
 
+      <div class="options-buttons-row">
+        <div class="button-rect">temperature</div>
+        <div class="button-rect">extra rinse</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 두 번째 화면 -->
+  <div id="screen2" class="screen">
+    <div class="time-wrapper">
+      <span id="timeNumber">0</span>
+      <span class="minutes-label">minutes</span>
     </div>
   </div>
 
   <script>
-    const startBtn = document.getElementById('startBtn');
-    const screen1 = document.getElementById('screen1');
-    const screen2 = document.getElementById('screen2');
-    const timerNumber = document.getElementById('timerNumber');
+    const startButton = document.getElementById("startButton");
+    const screen1 = document.getElementById("screen1");
+    const screen2 = document.getElementById("screen2");
+    const timeNumber = document.getElementById("timeNumber");
 
-    let shuffleInterval = null;
+    startButton.addEventListener("click", () => {
+      // 화면 즉시 전환
+      screen1.style.display = "none";
+      screen2.style.display = "flex";
 
-    startBtn.addEventListener('click', () => {
-      // 화면 전환
-      screen1.style.display = 'none';
-      screen2.style.display = 'block';
+      const maxNumber = 54;
+      const duration = 2500;   // 전체 애니메이션 시간(ms)
+      const intervalTime = 40; // 숫자 변경 간격(ms)
 
-      // 0~54 사이 숫자를 매우 빠르게 바꾸기 시작
-      shuffleInterval = setInterval(() => {
-        const randomValue = Math.floor(Math.random() * 55); // 0~54
-        timerNumber.textContent = randomValue;
-      }, 40); // 정신없이 빠르게
+      let elapsed = 0;
+      const intervalId = setInterval(() => {
+        elapsed += intervalTime;
 
-      // 일정 시간(예: 2초) 후 셔플 멈추고 54로 고정
-      setTimeout(() => {
-        clearInterval(shuffleInterval);
-        timerNumber.textContent = 54;
-      }, 2000);
+        const randomNum = Math.floor(Math.random() * (maxNumber + 1));
+        timeNumber.textContent = randomNum;
+
+        if (elapsed >= duration) {
+          clearInterval(intervalId);
+          timeNumber.textContent = maxNumber; // 마지막에 54로 고정
+        }
+      }, intervalTime);
     });
   </script>
 </body>
 </html>
+
 
