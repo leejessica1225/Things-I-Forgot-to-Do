@@ -16,70 +16,68 @@
     .button {
         background:#0b2239;
         color:white;
-        padding:14px 26px;
-        border-radius:6px;
-        font-size:20px;
+        padding:18px 34px;
+        border-radius:8px;
+        font-size:28px;
         cursor:pointer;
         border:none;
     }
 
     /* ---------- 첫 화면 (assignment) ---------- */
     #screen1 {
-        padding:60px;
+        padding:70px;
         display:block;
     }
 
     .topbar {
-        font-size:32px;
-        margin-bottom:10px;
+        font-size:40px;
+        margin-bottom:20px;
     }
 
     .duedate {
-        margin-top:10px;
-        font-size:22px;
+        font-size:28px;
+        margin-bottom:40px;
     }
 
     .progress-area {
         margin-top:60px;
         display:flex;
         align-items:center;
-        gap:18px;
-        font-size:24px;
+        gap:22px;
+        font-size:30px;
     }
 
-    /* 로딩 아이콘(SVG 교체됨 – 네 이미지 동일하게 구현) */
+    /* 로딩 아이콘 */
     .progress-circle {
-        width:50px;
-        height:50px;
+        width:60px;
+        height:60px;
     }
 
-    /* ---------- submit 버튼 오른쪽 아래 ---------- */
     .submit-wrap {
-        margin-top:200px;
+        margin-top:260px;
         display:flex;
         justify-content:flex-end;
-        width:100%;
     }
 
     /* ---------- 두 번째 화면 ---------- */
     #screen2 {
         display:none;
-        padding:60px;
+        padding:70px;
         position:relative;
     }
 
-    /* 팝업 */
+    /* ✔ 팝업 */
     .popup {
         position:absolute;
         top:20px;
         left:50%;
         transform:translateX(-50%);
-        width:70%;
+        width:75%;
         background:#0b2239;
         color:white;
-        padding:18px 24px;
-        font-size:22px;
-        border-radius:4px;
+        padding:22px 28px;
+        font-size:30px;
+        border-radius:6px;
         display:flex;
         justify-content:space-between;
         opacity:0;
@@ -90,24 +88,22 @@
         opacity:1;
     }
 
-    /* X 버튼 */
     .close-btn {
         cursor:pointer;
-        font-size:26px;
-        margin-left:15px;
+        font-size:38px;
+        margin-left:20px;
     }
 
-    /* 팝업 때문에 본문 내려간 상태 */
     .pushed {
-        margin-top:120px;
+        margin-top:150px;
     }
 
     /* page9 화살표 */
     .next-arrow {
         position:fixed;
-        right:40px;
-        bottom:40px;
-        font-size:60px;
+        right:45px;
+        bottom:45px;
+        font-size:70px;
         color:#0b2239;
         cursor:pointer;
         user-select:none;
@@ -123,7 +119,7 @@
     <div class="duedate">due: tue Oct 21, 2025 11:59 pm</div>
 
     <div class="progress-area">
-        <!-- ✨ 네 이미지와 완전히 동일한 로딩 아이콘 SVG -->
+        <!-- SVG 로딩 아이콘 -->
         <svg class="progress-circle" viewBox="0 0 40 40">
             <circle
                 cx="20"
@@ -134,7 +130,6 @@
                 stroke-width="4"
                 stroke-linecap="round"
                 stroke-dasharray="75 100"
-                stroke-dashoffset="0"
                 transform="rotate(40 20 20)"
             />
         </svg>
@@ -145,9 +140,9 @@
         </div>
     </div>
 
-    <div style="margin-top:50px; font-size:26px;">details</div>
+    <div style="margin-top:70px; font-size:34px;">details</div>
 
-    <div style="margin-top:30px; font-size:22px; line-height:1.5;">
+    <div style="margin-top:40px; font-size:28px; line-height:1.55;">
         harmonic collection entry midterm edit <br><br>
         review and revise all of your entries so that they are responsive and beginning to create a coherent story. <br><br>
         write a short document to accompany your midterm <br><br>
@@ -168,20 +163,20 @@
         <div class="close-btn" onclick="closePopup()">✕</div>
     </div>
 
-    <!-- 본문 전체 (팝업 때문에 아래로 내려가도록 pushed 클래스 적용됨) -->
+    <!-- 제출 후 화면 -->
     <div id="submittedContent" class="pushed">
         
-        <div style="font-size:30px; margin-bottom:30px;">media submission</div>
+        <div style="font-size:40px; margin-bottom:40px;">media submission</div>
 
-        <div style="font-size:22px; margin-bottom:20px;">
-            due &nbsp; Oct 31 by 11:59pm &nbsp;&nbsp;&nbsp;
-            points &nbsp; 5 &nbsp;&nbsp;&nbsp;
+        <div style="font-size:30px; margin-bottom:25px;">
+            due &nbsp; Oct 31 by 11:59pm &nbsp;&nbsp;&nbsp;&nbsp;
+            points &nbsp; 5 &nbsp;&nbsp;&nbsp;&nbsp;
             submitting &nbsp; a file upload
         </div>
 
         <hr style="border:1px solid #0b2239;">
 
-        <div style="font-size:22px; line-height:1.5; margin-top:24px;">
+        <div style="font-size:28px; line-height:1.6; margin-top:30px;">
             harmonic collection entry midterm edit<br><br>
             review and revise all of your entries so that they are responsive and beginning to create a coherent story.<br><br>
             write a short document to accompany your midterm<br><br>
@@ -190,20 +185,17 @@
 
     </div>
 
-    <!-- page9 로 가는 화살표 -->
+    <!-- page9 이동 -->
     <div class="next-arrow" onclick="location.href='page9.html'">➤</div>
 </div>
 
 
-
-
 <script>
-/* 첫 화면 → 두 번째 화면 */
+/* submit → 두 번째 화면 */
 function goSubmit() {
     document.getElementById("screen1").style.display = "none";
     document.getElementById("screen2").style.display = "block";
 
-    // 팝업 300ms 후 등장
     setTimeout(() => {
         document.getElementById("popup").classList.add("show");
     }, 300);
@@ -214,6 +206,10 @@ function closePopup() {
     document.getElementById("popup").classList.remove("show");
 }
 </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
