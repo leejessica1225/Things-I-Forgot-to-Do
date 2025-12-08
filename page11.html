@@ -190,4 +190,66 @@
   <!-- -------- Screen 1: return application -------- -->
   <div id="screen1" class="screen">
     <div class="content">
-      <div class="ti
+      <div class="title">return application</div>
+
+      <div class="status-line">
+        <div class="status-icon filled">✓</div>
+        <div class="status-text">
+          return request successful
+          <span class="date">nov 14 2025</span>
+        </div>
+      </div>
+
+      <div class="status-line">
+        <div class="status-icon"></div>
+        <div class="status-text">to be shipped</div>
+      </div>
+
+      <div class="section-label">USPS - QR code</div>
+      <div class="section-line"></div>
+
+      <p class="body-text">return by USPS QR code - no printer required</p>
+      <p class="body-text">
+        no need to print out a label; just show the QR code at your nearest USPS<br/>
+        USPS will print the shipping label and ship the package back
+      </p>
+
+      <div class="qr-row">
+        <div class="qr-card">
+          <div class="qr-small-icon"></div>
+          <div class="qr-label">QR code</div>
+        </div>
+
+        <div id="downloadIcon">
+          <div>
+            <div class="download-arrow"></div>
+            <div class="download-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="status-line bottom-status">
+        <div class="status-icon"></div>
+        <div class="status-text">returned package in transit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- -------- Screen 2: big QR -------- -->
+  <div id="screen2" class="screen">
+    <div class="qr-big"></div>
+  </div>
+
+  <script>
+    const downloadIcon = document.getElementById("downloadIcon");
+    const screen1 = document.getElementById("screen1");
+    const screen2 = document.getElementById("screen2");
+
+    // 다운로드 아이콘 누르면 두 번째 페이지로 즉시 전환
+    downloadIcon.addEventListener("click", () => {
+      screen1.style.display = "none";
+      screen2.style.display = "flex";
+    });
+  </script>
+</body>
+</html>
