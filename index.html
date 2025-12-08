@@ -14,15 +14,24 @@
       height: 100vh;
       margin: 0;
     }
+
+    /* 🔥 추가된 부분: 모든 링크 밑줄 제거 + 글자색 검정 */
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
     h1 {
       margin-bottom: 40px;
       cursor: pointer;
     }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(5, 80px);
       grid-gap: 15px;
     }
+
     .box {
       width: 80px;
       height: 80px;
@@ -35,23 +44,21 @@
       font-size: 20px;
       cursor: pointer;
     }
+    
     .box:hover, h1:hover {
       background: #f0f0f0;
     }
   </style>
 </head>
+
 <body>
-  <!-- 메인 제목도 같은 페이지로 -->
   <a href="page2.html?screen=1">
-  <h1>Things I Forgot to Do</h1>
-</a>
+    <h1>Things I Forgot to Do</h1>
+  </a>
 
   <div class="grid">
-    <!-- 1번 상자도 같은 페이지 -->
     <a class="box" href="page2.html?screen=1">1</a>
-
     <a class="box" href="page3.html">2</a>
-
     <a class="box" href="page4.html">3</a>
     <a class="box" href="page5.html">4</a>
     <a class="box" href="page6.html">5</a>
@@ -63,3 +70,4 @@
   </div>
 </body>
 </html>
+
