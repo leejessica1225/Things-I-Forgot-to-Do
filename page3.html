@@ -32,7 +32,7 @@
       height: 650px;
     }
 
-    /* ------ 토글 공통 스타일 ------ */
+    /* ----- 토글 공통 스타일 ----- */
 
     .toggle {
       position: absolute;
@@ -61,6 +61,7 @@
     .label-off {
       position: relative;
       z-index: 1;
+      cursor: pointer;
     }
 
     /* 동그란 버튼(노브) */
@@ -77,23 +78,21 @@
       font-weight: 400;
       color: var(--knob-text);
       cursor: pointer;
-      /* Figma gentle 느낌: 딜레이 거의 없고 300ms 부드럽게 */
+      left: 0;                         /* 시작 위치: 왼쪽(on) */
       transition: transform 0.3s ease-in-out;
-      /* 기본 위치: 왼쪽(on) */
       transform: translateX(0);
     }
 
     /* off 상태일 때 오른쪽으로 이동 */
     .toggle.is-off .toggle-knob {
-      transform: translateX(160px); /* 트랙 폭에 맞춰 조정 */
+      transform: translateX(160px);    /* 트랙 폭에 맞춰 조정 */
     }
 
-    /* 텍스트 바뀔 때 부드럽게 보이도록 약간의 트랜지션 */
     .toggle-knob span {
       transition: opacity 0.2s ease;
     }
 
-    /* 상태별 텍스트 표시 (JS에서 클래스 토글) */
+    /* 상태별 텍스트 표시 */
     .toggle.is-off .knob-text-on {
       opacity: 0;
     }
@@ -107,21 +106,21 @@
       opacity: 0;
     }
 
-    /* ------- 여러 개 토글 위치 배치 (대략 스샷처럼) ------- */
+    /* ----- 여러 개 토글 위치 배치 (대략 스샷처럼) ----- */
 
-    .toggle.t1 { top: 40px; left: 120px; }
-    .toggle.t2 { top: 40px; right: 80px; }
-    .toggle.t3 { top: 210px; right: 220px; }
-    .toggle.t4 { top: 260px; left: 80px; }
-    .toggle.t5 { top: 360px; left: 450px; }
-    .toggle.t6 { bottom: 80px; left: 160px; }
-    .toggle.t7 { bottom: 60px; right: 140px; }
+    .toggle.t1 { top: 60px; left: 140px; }
+    .toggle.t2 { top: 60px; right: 120px; }
+    .toggle.t3 { top: 230px; right: 260px; }
+    .toggle.t4 { top: 260px; left: 100px; }
+    .toggle.t5 { top: 380px; left: 470px; }
+    .toggle.t6 { bottom: 90px; left: 180px; }
+    .toggle.t7 { bottom: 80px; right: 160px; }
 
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <!-- 각 토글은 독립적으로 동작함 -->
+    <!-- 각각 독립적인 토글들 -->
 
     <div class="toggle t1">
       <div class="toggle-track">
@@ -199,26 +198,38 @@
         </div>
       </div>
     </div>
-
   </div>
 
   <script>
-    // 모든 토글에 대해: 노브(on 쪽 동그라미) 클릭 시 on/off 전환
+    // 모든 토글에 대해: on / off / 동그라미 클릭 시 상태 토글
     document.querySelectorAll('.toggle').forEach(toggle => {
       const knob = toggle.querySelector('.toggle-knob');
+      const labelOn = toggle.querySelector('.label-on');
+      const labelOff = toggle.querySelector('.label-off');
 
-      knob.addEventListener('click', (e) => {
-        // 부모 쪽으로 클릭 이벤트 안 퍼지게 (원하면 생략 가능)
+      function toggleState() {
+        // Figma처럼 약간의 딜레이 후 상태 변경
+        setTimeout(() => {
+          toggle.classList.toggle('is-off');
+        }, 1);
+      }
+
+      knob.addEventListener('click', e => {
         e.stopPropagation();
-        toggle.classList.toggle('is-off');
+        toggleState();
       });
 
-      // 원하면 on 라벨(텍스트)도 클릭해서 바꾸고 싶을 때:
-      const labelOn = toggle.querySelector('.label-on');
-      labelOn.addEventListener('click', () => {
-        toggle.classList.toggle('is-off');
+      labelOn.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleState();
+      });
+
+      labelOff.addEventListener('click', e => {
+        e.stopPropagation();
+        toggleState();
       });
     });
   </script>
 </body>
 </html>
+
