@@ -32,17 +32,14 @@
       height: 650px;
     }
 
-    /* ----- 토글 버튼 ----- */
+    /* ----- 토글 공통 스타일 ----- */
 
     .toggle {
       position: absolute;
-      width: 280px;
-      height: 90px;
+      width: 320px;
+      height: 96px;
       border-radius: 999px;
       border: 4px solid var(--line);
-      display: flex;
-      align-items: center;
-      padding: 0 18px;
       color: var(--text);
       font-size: 32px;
       font-weight: 400;
@@ -55,6 +52,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0 40px; /* on / off 텍스트 위치 */
     }
 
     .label-on,
@@ -64,10 +62,11 @@
       cursor: pointer;
     }
 
+    /* 동그란 버튼(노브) – 트랙 안에 딱 맞게 */
     .toggle-knob {
       position: absolute;
-      width: 86px;
-      height: 86px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
       background-color: var(--cream);
       display: flex;
@@ -77,32 +76,35 @@
       font-weight: 400;
       color: var(--knob-text);
       cursor: pointer;
-      left: 0;
-      transition: transform 0.3s ease-in-out;
-      transform: translateX(0);
+      top: 0;             /* 내용 영역 높이가 96-8=88이라 0이면 딱 맞음 */
+      left: 0;            /* 왼쪽 테두리 안쪽에 딱 붙게 */
+      transition: left 0.3s ease-in-out;
     }
 
+    /* off 상태일 때 오른쪽 테두리 안쪽에 딱 붙게 이동 */
     .toggle.is-off .toggle-knob {
-      transform: translateX(160px);
+      left: calc(100% - 88px); /* 내용 너비(=100%) - 노브 너비 */
     }
 
     .toggle-knob span {
       transition: opacity 0.2s ease;
     }
 
+    /* 상태별 텍스트 표시 */
     .toggle.is-off .knob-text-on { opacity: 0; }
     .toggle.is-off .knob-text-off { opacity: 1; }
     .toggle:not(.is-off) .knob-text-on { opacity: 1; }
     .toggle:not(.is-off) .knob-text-off { opacity: 0; }
 
-    /* ---- 위치 배치 ---- */
-    .toggle.t1 { top: 60px; left: 140px; }
-    .toggle.t2 { top: 60px; right: 120px; }
-    .toggle.t3 { top: 230px; right: 260px; }
-    .toggle.t4 { top: 260px; left: 100px; }
-    .toggle.t5 { top: 380px; left: 470px; }
-    .toggle.t6 { bottom: 90px; left: 180px; }
-    .toggle.t7 { bottom: 80px; right: 160px; }
+    /* ----- 토글 위치 배치 (대략 스샷처럼) ----- */
+
+    .toggle.t1 { top: 70px; left: 140px; }
+    .toggle.t2 { top: 70px; right: 140px; }
+    .toggle.t3 { top: 250px; right: 260px; }
+    .toggle.t4 { top: 280px; left: 110px; }
+    .toggle.t5 { top: 410px; left: 480px; }
+    .toggle.t6 { bottom: 90px; left: 190px; }
+    .toggle.t7 { bottom: 80px; right: 180px; }
 
     /* ---- 페이지 이동 화살표 ---- */
     .next-arrow {
@@ -126,7 +128,7 @@
 <body>
   <div class="wrapper">
 
-    <!-- 7개 토글들 -->
+    <!-- 7개 토글 -->
     <div class="toggle t1">
       <div class="toggle-track">
         <div class="label-on">on</div>
@@ -205,11 +207,11 @@
     </div>
   </div>
 
-  <!-- 🔥 오른쪽 아래 화살표: page4.html 이동 -->
+  <!-- 오른쪽 아래 화살표: page4.html로 이동 -->
   <a class="next-arrow" href="page4.html">→</a>
 
   <script>
-    // 모든 토글에 대해 클릭 반응 추가
+    // on / off / 동그라미 모두 클릭 시 상태 토글
     document.querySelectorAll('.toggle').forEach(toggle => {
       const knob = toggle.querySelector('.toggle-knob');
       const labelOn = toggle.querySelector('.label-on');
@@ -218,7 +220,7 @@
       function toggleState() {
         setTimeout(() => {
           toggle.classList.toggle('is-off');
-        }, 1);
+        }, 1); // Figma 느낌용 살짝 딜레이
       }
 
       knob.addEventListener('click', e => {
@@ -239,5 +241,6 @@
   </script>
 </body>
 </html>
+
 
 
