@@ -1,198 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Destination Selector</title>
-<style>
-  body {
-    margin: 0;
-    background-color: #9aa7af;
-    font-family: Arial, sans-serif;
-    overflow: hidden;
-  }
+  <meta charset="UTF-8" />
+  <title>Washer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  .top-bar {
-    width: 100%;
-    height: 110px;
-    border-bottom: 3px solid #eef58a;
-    position: relative;
-  }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #f7d647; /* 노란 배경 */
+      color: #4a302d;            /* 브라운 텍스트 */
+    }
 
-  .globe {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 36px;
-    height: 36px;
-    fill: #eef58a;
-  }
+    .page-wrap {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .datetime {
-    position: absolute;
-    top: 25px;
-    right: 40px;
-    text-align: right;
-    font-size: 22px;
-    color: #eef58a;
-    line-height: 1.2;
-  }
+    /* 공통 숨김/표시 */
+    #screen1 {
+      display: block;
+    }
+    #screen2 {
+      display: none;
+    }
 
-  .title {
-    margin-top: 35px;
-    text-align: center;
-    font-size: 30px;
-    color: #eef58a;
-    font-weight: bold;
-  }
+    /* ------------ SCREEN 1 : 설정 화면 ------------ */
 
-  .circle-grid {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-  }
+    .washer-panel {
+      text-align: center;
+      padding: 40px 40px 30px;
+    }
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 140px);
-    grid-row-gap: 35px;
-    grid-column-gap: 60px;
-  }
+    .washer-title {
+      font-size: 64px;   /* 살짝 더 작게 */
+      margin-bottom: 50px;
+    }
 
-  .circle-btn {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background-color: #eef58a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #7d8b94;
-    font-size: 40px;
-    cursor: pointer;
-    user-select: none;
-  }
+    .program-row {
+      display: flex;
+      justify-content: center;
+      gap: 70px;
+      margin-bottom: 45px;
+    }
 
-  .bottom-bar {
-    margin-top: 40px;
-    width: 100%;
-    border-top: 3px solid #eef58a;
-    padding-top: 20px;
-    text-align: center;
-    font-size: 24px;
-    color: #eef58a;
-  }
+    .mode-btn,
+    .option-btn {
+      background-color: #4a302d;
+      color: #f7d647;
+      border: none;
+      padding: 16px 46px;
+      font-size: 28px;
+      cursor: pointer;
+      min-width: 220px;
+    }
 
-  /* ---- SCREEN 2 ---- */
-  #screen2 {
-    display: none;
-    width: 100vw;
-    height: 100vh;
-    background-color: #9aa7af;
-    position: absolute;
-    top: 0;
-    left: 0;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
+    .mode-btn:active,
+    .option-btn:active {
+      transform: translateY(1px);
+    }
 
-  .take-text {
-    font-size: 60px;
-    color: #eef58a;
-    margin-bottom: 20px;
-  }
+    .options-label-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin-bottom: 25px;
+    }
 
-  .elevator-number {
-    font-size: 200px;
-    color: #eef58a;
-    font-weight: bold;
-  }
-</style>
+    .options-line {
+      width: 150px;
+      height: 2px;
+      background-color: #4a302d;
+    }
+
+    .options-text {
+      font-size: 32px;
+    }
+
+    .bottom-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .options-buttons {
+      display: flex;
+      gap: 60px;
+    }
+
+    .start-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .start-label {
+      font-size: 32px;
+    }
+
+    #startButton {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background-color: #4a302d;
+      border: none;
+      cursor: pointer;
+    }
+
+    #startButton:active {
+      transform: translateY(2px);
+    }
+
+    /* ------------ SCREEN 2 : 남은 시간 화면 ------------ */
+
+    .timer-screen {
+      text-align: center;
+    }
+
+    .timer-number {
+      font-size: 160px;
+      font-weight: normal;
+      margin-bottom: 10px;
+    }
+
+    .timer-label {
+      font-size: 36px;
+    }
+  </style>
 </head>
 <body>
+  <div class="page-wrap">
+    <!-- --------- SCREEN 1 --------- -->
+    <div id="screen1">
+      <div class="washer-panel">
+        <div class="washer-title">washer</div>
 
-<!-- SCREEN 1 -->
-<div id="screen1">
-  <div class="top-bar">
-    <svg class="globe" viewBox="0 0 24 24">
-      <path fill="#eef58a" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 
-      10-10S17.52 2 12 2zm6.93 6h-2.95a15.1 15.1 0 0 0-1.07-4.01A8.03 
-      8.03 0 0 1 18.93 8zM12 4c.83 1.2 1.48 2.77 1.82 4H10.18A12.48 
-      12.48 0 0 1 12 4zM4.26 14A7.93 7.93 0 0 1 4 12c0-.69.09-1.36.26-2h3.38a17.2 
-      17.2 0 0 0-.14 2c0 .68.05 1.35.14 2H4.26zm1.81 4h2.95a15.1 15.1 0 0 
-      0 1.07 4.01A8.03 8.03 0 0 1 6.07 18zm2.95-8H4.26a7.987 7.987 0 0 
-      1 1.81-4h2.95c-.45 1.27-.74 2.64-.9 4zm1.16 8h4.64c-.38 1.44-1.06 
-      2.93-2.32 4-1.26-1.07-1.94-2.56-2.32-4zm.32-4c-.1-.64-.16-1.31-.16-2 
-      0-.69.06-1.36.16-2h5.18c.1.64.16 1.31.16 2 0 .69-.06 1.36-.16 2H10.5zm1.57 
-      8a15.1 15.1 0 0 0 1.07-4.01h2.95a8.03 8.03 0 0 1-4.02 4.01zM14.89 
-      14c.09-.65.14-1.32.14-2 0-.68-.05-1.35-.14-2h3.38c.17.64.26 1.31.26 
-      2 0 .69-.09 1.36-.26 2h-3.38zm.57 8A15.1 15.1 0 0 0 16.53 18h2.95a8.03 
-      8.03 0 0 1-4.02 4z"/>
-    </svg>
+        <div class="program-row">
+          <button class="mode-btn">powerwash</button>
+          <button class="mode-btn">normal</button>
+          <button class="mode-btn">delicates</button>
+        </div>
 
-    <div class="datetime">
-      tue, 11/11/2025<br>22:14
+        <div class="options-label-wrap">
+          <div class="options-line"></div>
+          <div class="options-text">options</div>
+          <div class="options-line"></div>
+        </div>
+
+        <div class="bottom-row">
+          <div class="options-buttons">
+            <button class="option-btn">temperature</button>
+            <button class="option-btn">extra rinse</button>
+          </div>
+
+          <div class="start-area">
+            <div class="start-label">start</div>
+            <button id="startButton"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- --------- SCREEN 2 --------- -->
+    <div id="screen2">
+      <div class="timer-screen">
+        <div id="timerNumber" class="timer-number">54</div>
+        <div class="timer-label">minutes</div>
+      </div>
     </div>
   </div>
 
-  <div class="title">select your destination</div>
+  <script>
+    const startButton = document.getElementById('startButton');
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+    const timerNumber = document.getElementById('timerNumber');
 
-  <div class="circle-grid">
-    <div class="grid">
-      <!-- 12 buttons -->
-      <div class="circle-btn">9</div>
-      <div class="circle-btn">10</div>
-      <div class="circle-btn">11</div>
-      <div class="circle-btn">12</div>
-      <div class="circle-btn">5</div>
-      <div class="circle-btn">6</div>
-      <div class="circle-btn">7</div>
-      <div class="circle-btn">8</div>
-      <div class="circle-btn">1</div>
-      <div class="circle-btn">2</div>
-      <div class="circle-btn">3</div>
-      <div class="circle-btn">4</div>
-    </div>
-  </div>
-
-  <div class="bottom-bar">1 - 12</div>
-</div>
-
-<!-- SCREEN 2 -->
-<div id="screen2">
-  <div class="take-text">take elevator</div>
-  <div class="elevator-number" id="elevatorNumber">3</div>
-</div>
-
-<script>
-  const buttons = document.querySelectorAll('.circle-btn');
-  const screen1 = document.getElementById('screen1');
-  const screen2 = document.getElementById('screen2');
-  const elevatorNumber = document.getElementById('elevatorNumber');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-
-      // 1~3 중 랜덤 엘리베이터 선택
-      const randomElevator = Math.floor(Math.random() * 3) + 1;
-      elevatorNumber.textContent = randomElevator;
-
-      // 화면 전환
+    startButton.addEventListener('click', () => {
+      // 첫 화면 숨기고 두 번째 화면 즉시 표시
       screen1.style.display = 'none';
-      screen2.style.display = 'flex';
+      screen2.style.display = 'block';
 
-      // 800ms 후 page10으로 이동
-      setTimeout(() => {
-        window.location.href = "page10.html";
-      }, 800);
+      // 숫자 0~54를 매우 빠르게 랜덤으로 바꾸다가 마지막에 54로 고정
+      const maxMinutes = 54;
+      let elapsed = 0;
+      const duration = 1800; // 토탈 1.8초 정도
+      const interval = 40;   // 40ms마다 숫자 변경 (정신없이 빠르게)
+
+      const intervalId = setInterval(() => {
+        elapsed += interval;
+        const randomValue = Math.floor(Math.random() * (maxMinutes + 1));
+        timerNumber.textContent = randomValue;
+
+        if (elapsed >= duration) {
+          clearInterval(intervalId);
+          timerNumber.textContent = maxMinutes; // 최종 값 54
+        }
+      }, interval);
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
+
 
 
 
