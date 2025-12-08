@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Midterm Assignment</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #6d8fd8; /* 파란 배경 */
+      color: #111;
+    }
+
+    .page-wrap {
+      min-height: 100vh;
+      padding: 40px 60px;
+    }
+
+    /* 공통 텍스트 스타일 */
+    h1, h2, p {
+      margin: 0;
+    }
+
+    /* ---------- 화면 1 ---------- */
+
+    #screen1 {
+      display: block;
+    }
+
+    #screen2 {
+      display: none;
+    }
+
+    .screen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      font-size: 22px;
+    }
+
+    .screen-subheader {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 40px;
+      font-size: 20px;
+    }
+
+    .status-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 4px solid #111;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      margin-right: 15px;
+      transform: rotate(-30deg);
+    }
+
+    .status-text-top {
+      font-weight: bold;
+    }
+
+    .details-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .details-text p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .submit-btn {
+      position: fixed;
+      right: 60px;
+      bottom: 40px;
+      padding: 14px 26px;
+      font-size: 18px;
+      background-color: #12243a;
+      color: #e7f0ff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* ---------- 화면 2 (media submission) ---------- */
+
+    .ms-title {
+      font-size: 20px;
+      margin-bottom: 25px;
+    }
+
+    .ms-line {
+      border-top: 1px solid #12243a;
+      margin: 12px 0;
+    }
+
+    .ms-info-row {
+      display: flex;
+      gap: 25px;
+      font-size: 17px;
+      margin-bottom: 15px;
+    }
+
+    .ms-info-row span.label {
+      font-weight: bold;
+    }
+
+    .ms-details p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    /* ---------- 팝업(토스트) ---------- */
+
+    #toast {
+      position: fixed;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      min-width: 60%;
+      max-width: 800px;
+      background-color: #0d1b2e;
+      color: #e7f0ff;
+      border: 2px solid #0d1b2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      font-size: 18px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    .toast-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .toast-check {
+      width: 26px;
+      height: 26px;
+      border-radius: 3px;
+      border: 2px solid #e7f0ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .toast-close {
+      font-size: 20px;
+      cursor: pointer;
+      padding-left: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+
+    <!-- ========== SCREEN 1 : assignment 상세 & 버튼 ========== -->
+    <div id="screen1">
+      <div class="screen-header">
+        <div>
+          <div>week 7 assignment | midterm write up</div>
+        </div>
+        <div>5 points possible</div>
+      </div>
+
+      <div class="screen-subheader">
+        due: tue Oct 21, 2025 11:59 pm
+      </div>
+
+      <div class="status-row">
+        <div class="status-circle"></div>
+        <div>
+          <div class="status-text-top">in progress</div>
+          <div>next up: submit assignment</div>
+        </div>
+      </div>
+
+      <div class="details-title">details</div>
+
+      <div class="details-text">
+        <p>harmonic collection entry midterm edit</p>
+        <p>review and revise all of your entries so that they are responsive and beginning to create a coherent story.</p>
+        <p>write a short document to accompany your midterm.</p>
+        <p>next class we’ll be doing presentations and group discussions of your midterms to get useful feedback.</p>
+      </div>
+
+      <button id="submitBtn" class="submit-btn">submit assignment</button>
+    </div>
+
+    <!-- ========== SCREEN 2 : media submission & 토스트 ========== -->
+    <div id="screen2">
+      <div class="ms-title">media submission</div>
+
+      <div class="ms-line"></div>
+
+      <div class="ms-info-row">
+        <span class="label">due</span>
+        <span>Oct 31 by 11:59pm</span>
+        <span class="label">points</span>
+        <span>5</span>
+        <span class="label">submitting</span>
+        <span>a file upload</span>
+      </div>
+
+      <div class="ms-line"></div>
+
+      <div class="ms-details">
+        <p>harmonic collection entry midterm edit</p>
+        <p>review and revise all of your entries so that they are responsive and beginning to create a coherent story.</p>
+        <p>write a short document to accompany your midterm.</p>
+        <p>next class we’ll be doing presentations and group discussions of your midterms to get useful feedback.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 팝업 -->
+  <div id="toast">
+    <div class="toast-left">
+      <div class="toast-check">✔</div>
+      <span>assignment successfully submitted.</span>
+    </div>
+    <div class="toast-close" id="toastClose">✕</div>
+  </div>
+
+  <script>
+    const submitBtn = document.getElementById('submitBtn');
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+    const toast = document.getElementById('toast');
+    const toastClose = document.getElementById('toastClose');
+
+    submitBtn.addEventListener('click', () => {
+      // 화면1 숨기고 화면2 보이기
+      screen1.style.display = 'none';
+      screen2.style.display = 'block';
+
+      // 120ms 후 토스트 뿅
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 120);
+
+      // 토스트가 뜬 뒤 800ms 후 page9.html 로 이동 (총 920ms 후)
+      setTimeout(() => {
+        window.location.href = 'page9.html';
+      }, 120 + 800);
+    });
+
+    // 토스트 X 눌렀을 때 그냥 숨기기 (리다이렉트는 그대로 진행)
+    toastClose.addEventListener('click', () => {
+      toast.classList.remove('show');
+    });
+  </script>
+</body>
+</html>
