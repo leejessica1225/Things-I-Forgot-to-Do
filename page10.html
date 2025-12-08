@@ -24,10 +24,9 @@
 
     /* ======= 1번째 화면 ======= */
     #screen1 .content {
-      width: 1000px;
-      max-width: 1000px;
+      width: 1100px;
+      max-width: 1100px;
       text-align: center;
-      position: relative; /* start 동그라미 absolute 기준 */
     }
 
     .title {
@@ -35,188 +34,25 @@
       margin-bottom: 120px;
     }
 
-    /* 위에 3개 버튼 줄 */
-    .modes-row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 80px;
-    }
-
-    .modes-buttons {
-      display: flex;
-      gap: 60px;
-    }
-
+    /* 공통 버튼 스타일 (높이 고정해서 정렬 쉽게) */
     .button-rect {
       background: #4d332f;
       color: #f7d53a;
-      padding: 22px 40px;
       font-size: 30px;
       border-radius: 2px;
-      min-width: 230px;
-      text-align: center;
+      min-width: 240px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    /* options 라벨 & 라인 */
-    .options-wrapper {
+    /* 위 줄: powerwash / normal / delicates / start */
+    .top-row {
       display: flex;
       justify-content: center;
-      align-items: center;
-      margin-bottom: 35px;
-      margin-top: 10px;
-    }
+      align-item
 
-    .options-line {
-      width: 170px;
-      border-bottom: 2px solid #4d332f;
-      margin: 0 10px;
-      margin-top: 10px;
-    }
-
-    .options-label {
-      font-size: 28px;
-    }
-
-    /* 아래 temperature / extra rinse 줄 */
-    .options-buttons-row {
-      display: flex;
-      justify-content: center;
-      gap: 60px;
-    }
-
-    .button-rect.spacer {
-      visibility: hidden;   /* 자리는 차지하지만 안 보임 (정렬용) */
-    }
-
-    /* start + 동그라미 */
-    .start-block {
-      position: absolute;
-      right: 80px;          /* extra rinse 오른쪽 */
-      top: 320px;           /* 위·아래 버튼 중간 높이 정도 */
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .start-text {
-      font-size: 30px;
-    }
-
-    #startButton {
-      width: 110px;
-      height: 110px;
-      border-radius: 50%;
-      background: #4d332f;
-      cursor: pointer;
-    }
-
-    /* ======= 2번째 화면 ======= */
-    #screen2 {
-      display: none;
-      flex-direction: column;
-    }
-
-    .time-wrapper {
-      display: flex;
-      align-items: baseline;
-    }
-
-    #timeNumber {
-      font-size: 150px;
-      font-weight: 400;
-    }
-
-    .minutes-label {
-      font-size: 32px;
-      margin-left: 18px;
-    }
-  </style>
-</head>
-<body>
-  <!-- 첫 번째 화면 -->
-  <div id="screen1" class="screen">
-    <div class="content">
-      <div class="title">washer</div>
-
-      <!-- 위 3개 버튼 -->
-      <div class="modes-row">
-        <div class="modes-buttons">
-          <div class="button-rect">powerwash</div>
-          <div class="button-rect">normal</div>
-          <div class="button-rect">delicates</div>
-        </div>
-      </div>
-
-      <!-- options 라벨 -->
-      <div class="options-wrapper">
-        <div class="options-line"></div>
-        <div class="options-label">options</div>
-        <div class="options-line"></div>
-      </div>
-
-      <!-- 아래 3 슬롯: temperature / (빈칸) / extra rinse -->
-      <div class="options-buttons-row">
-        <div class="button-rect">temperature</div>
-        <div class="button-rect spacer">spacer</div>
-        <div class="button-rect">extra rinse</div>
-      </div>
-
-      <!-- start + 동그라미 (absolute 위치) -->
-      <div class="start-block">
-        <div class="start-text">start</div>
-        <div id="startButton"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 두 번째 화면 -->
-  <div id="screen2" class="screen">
-    <div class="time-wrapper">
-      <span id="timeNumber">0</span>
-      <span class="minutes-label">minutes</span>
-    </div>
-  </div>
-
-  <script>
-    const startButton = document.getElementById("startButton");
-    const screen1 = document.getElementById("screen1");
-    const screen2 = document.getElementById("screen2");
-    const timeNumber = document.getElementById("timeNumber");
-
-    startButton.addEventListener("click", () => {
-      // 첫 화면 숨기고 두 번째 화면 즉시 보이기
-      screen1.style.display = "none";
-      screen2.style.display = "flex";
-
-      const maxNumber = 54;
-      const duration = 2500;   // 숫자 랜덤 변화 총 시간(ms)
-      const intervalTime = 40; // 숫자 변경 간격(ms)
-
-      let elapsed = 0;
-
-      const intervalId = setInterval(() => {
-        elapsed += intervalTime;
-
-        // 0~54 랜덤 숫자
-        const randomNum = Math.floor(Math.random() * (maxNumber + 1));
-        timeNumber.textContent = randomNum;
-
-        // 끝나면 54로 고정
-        if (elapsed >= duration) {
-          clearInterval(intervalId);
-          timeNumber.textContent = maxNumber;
-
-          // 80ms 후 page11.html 이동
-          setTimeout(() => {
-            window.location.href = "page11.html";
-          }, 80);
-        }
-      }, intervalTime);
-    });
-  </script>
-</body>
-</html>
 
 
 
