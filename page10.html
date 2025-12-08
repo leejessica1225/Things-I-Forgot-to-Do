@@ -9,7 +9,7 @@
     html, body {
       height: 100%;
       font-family: Helvetica, Arial, sans-serif;
-      background: #f7d53a;   /* 노란색 배경 */
+      background: #f7d53a;   /* 노란 배경 */
       color: #4d332f;        /* 갈색 텍스트 */
     }
 
@@ -171,29 +171,38 @@
     const timeNumber = document.getElementById("timeNumber");
 
     startButton.addEventListener("click", () => {
-      // 화면 즉시 전환
+      // 1) 첫 화면 숨기고 두 번째 화면 즉시 보이기
       screen1.style.display = "none";
       screen2.style.display = "flex";
 
       const maxNumber = 54;
-      const duration = 2500;   // 전체 애니메이션 시간(ms)
-      const intervalTime = 40; // 숫자 변경 간격(ms)
+      const duration = 2500;   // 숫자 랜덤 변화 총 시간
+      const intervalTime = 40; // 숫자 변경 속도
 
       let elapsed = 0;
+
       const intervalId = setInterval(() => {
         elapsed += intervalTime;
 
+        // 0~54 랜덤 숫자 표시
         const randomNum = Math.floor(Math.random() * (maxNumber + 1));
         timeNumber.textContent = randomNum;
 
+        // 시간이 끝나면 54에서 멈춤
         if (elapsed >= duration) {
           clearInterval(intervalId);
-          timeNumber.textContent = maxNumber; // 마지막에 54로 고정
+          timeNumber.textContent = maxNumber;
+
+          // ⭐ 숫자 고정 후 80ms 뒤 page11.html 로 이동
+          setTimeout(() => {
+            window.location.href = "page11.html";
+          }, 80);
         }
       }, intervalTime);
     });
   </script>
 </body>
 </html>
+
 
 
