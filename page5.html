@@ -113,4 +113,111 @@
 
       <button class="key" data-key="4">
         <span class="num">4</span>
+        <span class="letters">GHI</span>
+      </button>
+
+      <button class="key" data-key="5">
+        <span class="num">5</span>
+        <span class="letters">JKL</span>
+      </button>
+
+      <button class="key" data-key="6">
+        <span class="num">6</span>
+        <span class="letters">MNO</span>
+      </button>
+
+      <button class="key" data-key="7">
+        <span class="num">7</span>
+        <span class="letters">PQRS</span>
+      </button>
+
+      <button class="key" data-key="8">
+        <span class="num">8</span>
+        <span class="letters">TUV</span>
+      </button>
+
+      <button class="key" data-key="9">
+        <span class="num">9</span>
+        <span class="letters">WXYZ</span>
+      </button>
+
+      <button class="key" data-key="*">
+        <span class="num">*</span>
+      </button>
+
+      <button class="key" data-key="0">
+        <span class="num">0</span>
+      </button>
+
+      <button class="key" data-key="#">
+        <span class="num">#</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- calling mom 화면 -->
+  <div id="call-screen">
+    <div id="call-text"></div>
+  </div>
+
+  <script>
+    const keys = document.querySelectorAll('.key');
+    const keypadWrapper = document.getElementById('keypad-wrapper');
+    const callScreen = document.getElementById('call-screen');
+    const callText = document.getElementById('call-text');
+
+    let isCalling = false; // 8 한 번 눌린 후에는 다시 동작 안 하도록
+
+    keys.forEach(key => {
+      key.addEventListener('click', () => {
+        if (isCalling) return; // calling mom 중에는 키패드 무시
+
+        // 공통: 깜빡이는 효과
+        key.classList.add('blink');
+        setTimeout(() => {
+          key.classList.remove('blink');
+        }, 120);
+
+        const value = key.dataset.key;
+
+        // 8번일 때만 calling mom 애니메이션 시작
+        if (value === '8') {
+          isCalling = true;
+
+          // 깜빡임이 끝난 후 화면 전환 & 타이핑 시작
+          setTimeout(() => {
+            startCallingAnimation();
+          }, 150);
+        }
+      });
+    });
+
+    function startCallingAnimation() {
+      // 키패드 숨기고 calling 화면 보여주기
+      keypadWrapper.classList.add('hidden');
+      callScreen.classList.add('show');
+
+      const message = 'calling mom...';
+      callText.textContent = '';
+      let index = 0;
+
+      function typeNext() {
+        if (index < message.length) {
+          callText.textContent += message.charAt(index);
+          index++;
+          setTimeout(typeNext, 80); // 글자 하나당 80ms
+        } else {
+          // 타이핑이 모두 끝난 뒤 0.8초 후 page6.html로 이동
+          setTimeout(() => {
+            window.location.href = 'page6.html';
+          }, 800);
+        }
+      }
+
+      typeNext();
+    }
+  </script>
+
+</body>
+</html>
 
