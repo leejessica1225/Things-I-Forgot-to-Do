@@ -102,8 +102,168 @@
     }
 
     .dropdown-item {
-      padding: 14px 18p
+      padding: 14px 18px;
+      border-top: 2px solid #89c2ff;
+      font-size: 22px;
+      color: #89c2ff;
+      background-color: #4b2627;
+      transition: background-color 0.15s, color 0.15s;
+    }
 
+    /* hover 때 색 변하는 부분 */
+    .dropdown-item:hover {
+      background-color: #9fc9ff;
+      color: #4b2627;
+    }
+
+    /* 열렸을 때 */
+    .dropdown.open .dropdown-list {
+      display: block;
+    }
+
+    .dropdown.open .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* 🔥 오른쪽 하단 next 버튼 */
+    .next-page-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      font-size: 45px;
+      color: #89c2ff;
+      cursor: pointer;
+      user-select: none;
+      transition: 0.2s;
+    }
+
+    .next-page-btn:hover {
+      color: white;
+      transform: scale(1.25);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔽 오른쪽 하단 화살표 버튼 -->
+  <div class="next-page-btn">➜</div>
+
+  <div class="wrapper">
+
+    <!-- (date) -->
+    <div class="dropdown date" data-placeholder="(date)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(date)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">monday</div>
+        <div class="dropdown-item">tuesday</div>
+        <div class="dropdown-item">wednesday</div>
+        <div class="dropdown-item">thursday</div>
+        <div class="dropdown-item">friday</div>
+        <div class="dropdown-item">saturday</div>
+      </div>
+    </div>
+
+    <!-- (time) -->
+    <div class="dropdown time" data-placeholder="(time)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(time)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">10:00 am - 10:20 am</div>
+        <div class="dropdown-item">10:20 am - 10:40 am</div>
+        <div class="dropdown-item">10:40 am - 11:00 am</div>
+        <div class="dropdown-item">11:00 am - 11:20 am</div>
+        <div class="dropdown-item">11:20 am - 11:40 am</div>
+        <div class="dropdown-item">12:00 am - 12:20 am</div>
+        <div class="dropdown-item">12:40 pm - 1:00 pm</div>
+      </div>
+    </div>
+
+    <!-- (reasons) -->
+    <div class="dropdown reasons" data-placeholder="(reasons)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(reasons)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">academic concerns</div>
+        <div class="dropdown-item">registration</div>
+        <div class="dropdown-item">study abroad</div>
+        <div class="dropdown-item">personal concerns</div>
+        <div class="dropdown-item">other</div>
+      </div>
+    </div>
+
+    <!-- (location) -->
+    <div class="dropdown location" data-placeholder="(location)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(location)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">zoom</div>
+        <div class="dropdown-item">6 E 16th St</div>
+      </div>
+    </div>
+
+    <!-- (session types) -->
+    <div class="dropdown session" data-placeholder="(session types)">
+      <div class="dropdown-header">
+        <span class="dropdown-label">(session types)</span>
+        <span class="dropdown-arrow">▾</span>
+      </div>
+      <div class="dropdown-list">
+        <div class="dropdown-item">group</div>
+        <div class="dropdown-item">single</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // 드롭다운 동작 설정 (한 번에 하나만 열리게)
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+      const label = dropdown.querySelector('.dropdown-label');
+      const items = dropdown.querySelectorAll('.dropdown-item');
+
+      dropdown.addEventListener('click', (e) => {
+        // 옵션 클릭이면 여기서는 처리하지 않음
+        if (e.target.classList.contains('dropdown-item')) return;
+
+        // 다른 드롭다운은 모두 닫기
+        document.querySelectorAll('.dropdown').forEach(d => {
+          if (d !== dropdown) d.classList.remove('open');
+        });
+
+        // 현재 것만 토글
+        dropdown.classList.toggle('open');
+      });
+
+      items.forEach(item => {
+        item.addEventListener('click', () => {
+          label.textContent = item.textContent;
+          dropdown.classList.add('selected');
+          dropdown.classList.remove('open');
+        });
+      });
+    });
+
+    // 바깥 클릭 시 모든 드롭다운 닫기
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown')) {
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('open'));
+      }
+    });
+
+    // 🔥 오른쪽 하단 버튼 → page3.html 이동
+    document.querySelector('.next-page-btn').addEventListener('click', () => {
+      window.location.href = "page3.html";
+    });
+  </script>
 
 </body>
 </html>
