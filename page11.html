@@ -9,8 +9,8 @@
     html, body {
       height: 100%;
       font-family: Helvetica, Arial, sans-serif;
-      background: #e3e4eb;      /* 연한 회색 배경 */
-      color: #ff1f8f;           /* 핑크 텍스트 */
+      background: #e3e4eb;
+      color: #ff1f8f;
     }
 
     .screen {
@@ -59,7 +59,6 @@
       background: #ff1f8f;
       color: #e3e4eb;
       font-size: 18px;
-      line-height: 1;
     }
 
     .status-text {
@@ -68,8 +67,8 @@
     }
 
     .status-text .date {
-      display: block;
       font-size: 18px;
+      display: block;
       margin-top: 4px;
     }
 
@@ -94,7 +93,7 @@
 
     .qr-row {
       display: flex;
-      align-items: center;
+      align-items: flex-end;   /* QR 네모와 다운로드 네모 bottom 정렬 */
       margin-top: 40px;
       margin-bottom: 60px;
     }
@@ -122,33 +121,12 @@
       text-align: center;
     }
 
-    /* ---- 다운로드 아이콘: 이미지 없이 CSS로 구현 ---- */
-    #downloadIcon.download-icon {
-      width: 70px;
-      height: 70px;
-      background: #ff1f8f;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    /* 다운로드 아이콘 이미지 (Group 93.png) */
+    .download-img {
+      width: 74px;
+      height: 74px;
+      object-fit: contain;
       cursor: pointer;
-    }
-
-    .download-icon .arrow-down {
-      width: 0;
-      height: 0;
-      border-left: 13px solid transparent;
-      border-right: 13px solid transparent;
-      border-top: 22px solid #e3e4eb; /* 배경색과 비슷한 화살표 색 */
-      margin-bottom: 4px;
-    }
-
-    .download-icon .arrow-base {
-      width: 30px;
-      height: 5px;
-      background: #e3e4eb;
-      margin-top: -2px;
-      border-radius: 3px;
     }
 
     .bottom-status {
@@ -169,11 +147,13 @@
     }
   </style>
 </head>
+
 <body>
 
-  <!-- -------- Screen 1: return application -------- -->
+  <!-- -------- Screen 1 -------- -->
   <div id="screen1" class="screen">
     <div class="content">
+
       <div class="title">return application</div>
 
       <div class="status-line">
@@ -200,28 +180,24 @@
 
       <div class="qr-row">
         <div class="qr-card">
-          <!-- 작은 QR 아이콘 -->
-          <img src="adobe-express-qr-code copy.png" class="qr-img-small" alt="QR code small">
+          <img src="adobe-express-qr-code copy.png" class="qr-img-small" alt="QR small">
           <div class="qr-label">QR code</div>
         </div>
 
-        <!-- 다운로드 아이콘 (클릭 시 두 번째 화면으로) -->
-        <div id="downloadIcon" class="download-icon">
-          <div class="arrow-down"></div>
-          <div class="arrow-base"></div>
-        </div>
+        <img id="downloadIcon" src="Group 93.png" class="download-img" alt="download icon">
       </div>
 
       <div class="status-line bottom-status">
         <div class="status-icon"></div>
         <div class="status-text">returned package in transit</div>
       </div>
+
     </div>
   </div>
 
-  <!-- -------- Screen 2: full QR -------- -->
+  <!-- -------- Screen 2 -------- -->
   <div id="screen2" class="screen">
-    <img src="adobe-express-qr-code copy.png" class="qr-img-big" alt="QR code large">
+    <img src="adobe-express-qr-code copy.png" class="qr-img-big" alt="QR big">
   </div>
 
   <script>
@@ -229,7 +205,6 @@
     const screen1 = document.getElementById("screen1");
     const screen2 = document.getElementById("screen2");
 
-    // 다운로드 아이콘 클릭 시 두 번째 화면으로 instant 전환
     downloadIcon.addEventListener("click", () => {
       screen1.style.display = "none";
       screen2.style.display = "flex";
@@ -238,3 +213,4 @@
 
 </body>
 </html>
+
