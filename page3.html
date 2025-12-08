@@ -1,179 +1,107 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Ivory Switches</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Things I Forgot to Do</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-<style>
-  :root {
-    --pink: #f23b8f;
-    --ivory: #fbe8d2;
-  }
+    a {
+      text-decoration: none;
+      color: black;
+    }
 
-  body {
-    margin: 0;
-    height: 100vh;
-    background: var(--pink);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Helvetica, Arial, sans-serif;
-    position: relative;
-  }
+    h1 {
+      margin-bottom: 40px;
+      cursor: pointer;
+    }
 
-  .container {
-    width: 900px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px;
-  }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 80px);
+      grid-gap: 15px;
+    }
 
-  .switch {
-    width: 220px;
-    height: 120px;
-    border: 4px solid var(--ivory);
-    border-radius: 16px;
-    color: var(--ivory);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    user-select: none;
-  }
+    .box {
+      width: 80px;
+      height: 80px;
+      border: 2px solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
 
-  .status {
-    font-size: 32px;
-    margin-bottom: 12px;
-  }
+    /* 기본 hover (1번, 2번 제외) */
+    .box:hover:not(.box1):not(.box2) {
+      background: #f0f0f0;
+    }
 
-  .btn-row {
-    display: flex;
-    gap: 12px;
-  }
+    /* ✨ 1번 박스 */
+    .box1 {
+      border-color: #9fc9ff;
+      background-color: #4b2627;
+      color: #9fc9ff;
+    }
 
-  /* 기본 버튼 상태 */
-  .btn {
-    padding: 6px 16px;
-    font-size: 20px;
-    border-radius: 10px;
-    border: 2px solid var(--ivory);
-    background: transparent;
-    color: var(--ivory);
-    cursor: pointer;
-    transition: 0.15s;
-  }
+    .box1:hover {
+      background-color: #6d3a3b;
+    }
 
-  /* 눌렸을 때(활성화된 버튼) */
-  .btn.active {
-    background: var(--ivory);
-    color: var(--pink);
-  }
+    /* ✨ 2번 박스 (핫핑크 + 아이보리 스타일) */
+    .box2 {
+      border-color: #fbe8d2;
+      background-color: #f23b8f;
+      color: #fbe8d2;
+    }
 
-  .btn:active {
-    transform: scale(0.94);
-  }
-
-  /* 페이지 이동 화살표 */
-  .next-arrow {
-    position: absolute;
-    bottom: 30px;
-    right: 40px;
-    font-size: 60px;
-    color: var(--ivory);
-    cursor: pointer;
-    user-select: none;
-    transition: 0.2s;
-  }
-
-  .next-arrow:active {
-    transform: scale(0.9);
-    opacity: 0.7;
-  }
-</style>
+    /* hover 시 → 더 연한 핑크 */
+    .box2:hover {
+      background-color: #f56fb0;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <a href="page2.html?screen=1">
+    <h1>Things I Forgot to Do</h1>
+  </a>
 
-  <!-- SWITCH TEMPLATE (복사됨) -->
-  <div class="switch">
-    <div class="status">OFF</div>
-    <div class="btn-row">
-      <button class="btn btn-on">ON</button>
-      <button class="btn btn-off">OFF</button>
-    </div>
+  <div class="grid">
+
+    <a class="box box1" href="page2.html?screen=1">1</a>
+
+    <!-- ✨ 2번 박스 스타일 적용 -->
+    <a class="box box2" href="page3.html">2</a>
+
+    <a class="box" href="page4.html">3</a>
+    <a class="box" href="page5.html">4</a>
+    <a class="box" href="page6.html">5</a>
+    <a class="box" href="page7.html">6</a>
+    <a class="box" href="page8.html">7</a>
+    <a class="box" href="page9.html">8</a>
+    <a class="box" href="page10.html">9</a>
+    <a class="box" href="page11.html">10</a>
+
   </div>
-
-  <div class="switch">
-    <div class="status">OFF</div>
-    <div class="btn-row">
-      <button class="btn btn-on">ON</button>
-      <button class="btn btn-off">OFF</button>
-    </div>
-  </div>
-
-  <div class="switch">
-    <div class="status">OFF</div>
-    <div class="btn-row">
-      <button class="btn btn-on">ON</button>
-      <button class="btn btn-off">OFF</button>
-    </div>
-  </div>
-
-  <div class="switch">
-    <div class="status">OFF</div>
-    <div class="btn-row">
-      <button class="btn btn-on">ON</button>
-      <button class="btn btn-off">OFF</button>
-    </div>
-  </div>
-
-  <div class="switch">
-    <div class="status">OFF</div>
-    <div class="btn-row">
-      <button class="btn btn-on">ON</button>
-      <button class="btn btn-off">OFF</button>
-    </div>
-  </div>
-
-  <div class="switch">
-    <div class="status">OFF</div>
-    <div class="btn-row">
-      <button class="btn btn-on">ON</button>
-      <button class="btn btn-off">OFF</button>
-    </div>
-  </div>
-
-</div>
-
-<!-- NEXT PAGE 화살표 -->
-<div class="next-arrow" onclick="location.href='page4.html'">→</div>
-
-<script>
-  document.querySelectorAll(".switch").forEach((sw) => {
-    const status = sw.querySelector(".status");
-    const btnOn = sw.querySelector(".btn-on");
-    const btnOff = sw.querySelector(".btn-off");
-
-    btnOn.addEventListener("click", () => {
-      status.textContent = "ON";
-
-      btnOn.classList.add("active");
-      btnOff.classList.remove("active");
-    });
-
-    btnOff.addEventListener("click", () => {
-      status.textContent = "OFF";
-
-      btnOff.classList.add("active");
-      btnOn.classList.remove("active");
-    });
-  });
-</script>
 
 </body>
 </html>
+
 
 
 
