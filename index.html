@@ -45,70 +45,95 @@
       transition: background 0.2s;
     }
 
-    /* 기본 hover (커스텀박스 제외) */
-    .box:hover:not(.box1):not(.box2):not(.box3):not(.box4):not(.box5):not(.box6) {
+    /* 기본 hover (커스텀 제외) */
+    .box:hover:not(.box1):not(.box2):not(.box3):not(.box4):not(.box5):not(.box6):not(.box7):not(.box8) {
       background: #f0f0f0;
     }
 
-    /* 1번 */
+    /* ----------------------------------
+        1번 상자
+    ---------------------------------- */
     .box1 {
       border-color: #9fc9ff;
       background-color: #4b2627;
       color: #9fc9ff;
     }
-    .box1:hover {
-      background-color: #8a4c4d;
-    }
+    .box1:hover { background-color: #8a4c4d; }
 
-    /* 2번 */
+    /* ----------------------------------
+        2번 상자
+    ---------------------------------- */
     .box2 {
       border-color: #fbe8d2;
       background-color: #f23b8f;
       color: #fbe8d2;
     }
-    .box2:hover {
-      background-color: #f56fb0;
-    }
+    .box2:hover { background-color: #f56fb0; }
 
-    /* 3번 */
+    /* ----------------------------------
+        3번 상자
+    ---------------------------------- */
     .box3 {
       border-color: #5a3b36;
       background-color: #e8a8c9;
       color: #5a3b36;
     }
-    .box3:hover {
-      background-color: #d999b7;
-    }
+    .box3:hover { background-color: #d999b7; }
 
-    /* 4번 */
+    /* ----------------------------------
+        4번 상자
+    ---------------------------------- */
     .box4 {
       border-color: #ff9ec3;
       background-color: #59b25c;
       color: #ff9ec3;
     }
-    .box4:hover {
-      background-color: #6fcb73;
-    }
+    .box4:hover { background-color: #6fcb73; }
 
-    /* 5번 (오타 때문에 안 먹었던 부분) */
+    /* ----------------------------------
+        5번 상자
+    ---------------------------------- */
     .box5 {
       border-color: #ffe983;
       background-color: #e7643c;
       color: #ffe983;
     }
-    .box5:hover {
-      background-color: #f07a52;
-    }
+    .box5:hover { background-color: #f07a52; }
 
-    /* 6번 */
+    /* ----------------------------------
+        6번 상자
+    ---------------------------------- */
     .box6 {
       border-color: #e23535;
       background-color: #f5b3d8;
       color: #e23535;
     }
-    .box6:hover {
-      background-color: #e89ec6;
+    .box6:hover { background-color: #e89ec6; }
+
+    /* ----------------------------------
+        ⭐ 7번 상자 (요청한 색)
+    ---------------------------------- */
+    .box7 {
+      background-color: #6d8fd8;   /* 내부 배경 */
+      border: 2px solid #12243a;   /* 텍스트 + 아웃라인 */
+      color: #12243a;
     }
+    .box7:hover {
+      background-color: #7fa3e2;
+    }
+
+    /* ----------------------------------
+        ⭐ 8번 상자 (요청한 색)
+    ---------------------------------- */
+    .box8 {
+      background-color: #9aa7af;   /* 내부 배경 */
+      border: 2px solid #eef58a;   /* 텍스트 + 아웃라인 */
+      color: #eef58a;
+    }
+    .box8:hover {
+      background-color: #b5c1c8;
+    }
+
   </style>
 </head>
 
@@ -124,14 +149,13 @@
     <a class="box box2" href="page3.html">2</a>
     <a class="box box3" href="page4.html">3</a>
     <a class="box box4" href="page5.html">4</a>
-
-    <!-- ✨ 오타 고쳐줌 (class0 → class) -->
     <a class="box box5" href="page6.html">5</a>
-
     <a class="box box6" href="page7.html">6</a>
 
-    <a class="box" href="page8.html">7</a>
-    <a class="box" href="page9.html">8</a>
+    <!-- ⭐ 새로 적용된 7, 8번 -->
+    <a class="box box7" href="page8.html">7</a>
+    <a class="box box8" href="page9.html">8</a>
+
     <a class="box" href="page10.html">9</a>
     <a class="box" href="page11.html">10</a>
 
@@ -139,6 +163,7 @@
 
 </body>
 </html>
+
 
 
 
