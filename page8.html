@@ -3,49 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <title>Midterm Assignment</title>
-
   <style>
     * { box-sizing: border-box; }
 
-    /* ============================
-       GLOBAL COLOR RULES
-       ============================ */
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background-color: #6d8fd8;
-      color: #6d8fd8 !important; /* 텍스트 숨김 */
+      color: #111;
     }
 
-    h1, h2, p, span, div {
-      color: #6d8fd8 !important;
-    }
-
-    /* ============================
-       LAYOUT
-       ============================ */
     .page-wrap {
       min-height: 100vh;
       padding: 40px 60px;
     }
 
-    /* ============================
-       SCREEN VISIBILITY
-       ============================ */
+    h1, h2, p { margin: 0; }
+
+    /* ---------- SCREEN 1 ---------- */
+
     #screen1 { display: block; }
     #screen2 { display: none; }
 
-    /* ============================
-       HEADERS (숨김용)
-       ============================ */
-    .screen-header div,
-    .screen-subheader {
-      color: #6d8fd8 !important;
+    .screen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 40px;
+      font-size: 22px;
     }
 
-    /* ============================
-       STATUS ROW + ICON
-       ============================ */
+    .screen-subheader {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
     .status-row {
       display: flex;
       align-items: center;
@@ -53,66 +45,90 @@
       font-size: 20px;
     }
 
-    .status-circle svg path {
-      stroke: #12243a !important; /* 남색 라인 */
+    /* 로딩 아이콘 (정확히 네가 원하는 12시→4시 각도) */
+    .status-circle {
+      width: 46px;
+      height: 46px;
+      margin-right: 15px;
+    }
+    .status-circle svg {
+      width: 46px;
+      height: 46px;
     }
 
-    /* ============================
-       DETAILS TEXT (숨김)
-       ============================ */
-    .details-text p,
-    .ms-details p,
-    .status-row div,
-    .ms-info-row span {
-      color: #6d8fd8 !important;
+    .details-title {
+      font-size: 20px;
+      margin-bottom: 20px;
     }
 
-    /* ============================
-       DIVIDER LINES
-       ============================ */
-    .ms-line {
-      border-top: 1px solid #12243a !important;
-      margin: 12px 0;
+    .details-text p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 10px;
     }
 
-    /* ============================
-       SUBMIT BUTTON
-       ============================ */
     .submit-btn {
       position: fixed;
       right: 60px;
       bottom: 40px;
       padding: 14px 26px;
       font-size: 18px;
-      background-color: #12243a !important; /* 남색 버튼 */
-      color: #6d8fd8 !important; /* 텍스트 숨김 */
+      background-color: #12243a;
+      color: #e7f0ff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
-    .submit-btn:hover { opacity: 0.8; }
+    .submit-btn:hover { opacity: 0.9; }
 
-    /* ============================
-       SCREEN 2 LAYOUT
-       ============================ */
+    /* ---------- SCREEN 2 ---------- */
+
     #screen2 {
-      margin-top: 70px;
+      margin-top: 70px; /* ⭐ 팝업과 겹치지 않도록 전체 블록 아래로 이동 */
     }
 
-    /* ============================
-       TOAST POPUP
-       ============================ */
+    .ms-title {
+      font-size: 20px;
+      margin-bottom: 25px;
+    }
+
+    .ms-line {
+      border-top: 1px solid #12243a;
+      margin: 12px 0;
+    }
+
+    .ms-info-row {
+      display: flex;
+      gap: 25px;
+      font-size: 17px;
+      margin-bottom: 15px;
+    }
+
+    .ms-info-row span.label { font-weight: bold; }
+
+    .ms-details p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    /* ---------- Toast popup ---------- */
+
     #toast {
       position: fixed;
       top: 40px;
       left: 50%;
       transform: translateX(-50%) translateY(-10px);
-      background-color: #12243a !important;
-      border: 2px solid #12243a !important;
       min-width: 60%;
+      max-width: 800px;
+      background-color: #0d1b2e;
+      color: #e7f0ff;
+      border: 2px solid #0d1b2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       padding: 12px 18px;
       font-size: 18px;
-      color: #6d8fd8 !important;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease-out, transform 0.3s ease-out;
@@ -124,26 +140,31 @@
       pointer-events: auto;
     }
 
+    .toast-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
     .toast-check {
       width: 26px;
       height: 26px;
-      border: 2px solid #6d8fd8 !important;
-      color: #6d8fd8 !important;
+      border-radius: 3px;
+      border: 2px solid #e7f0ff;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 3px;
+      font-size: 18px;
     }
 
     .toast-close {
-      color: #6d8fd8 !important;
+      font-size: 20px;
       cursor: pointer;
       padding-left: 15px;
     }
 
-    /* ============================
-       NEXT ARROW
-       ============================ */
+    /* ---------- NEXT ARROW ---------- */
+
     #nextArrow {
       position: fixed;
       right: 50px;
@@ -152,9 +173,8 @@
       height: 55px;
       cursor: pointer;
       opacity: 0.9;
+      transition: 0.2s;
       display: none;
-      filter: brightness(0) saturate(100%) invert(12%) sepia(20%) saturate(600%) hue-rotate(180deg);
-      /* → 아이콘을 #12243a 느낌으로 표현 */
     }
     #nextArrow:hover { opacity: 1; }
 
@@ -164,31 +184,37 @@
 <body>
 <div class="page-wrap">
 
-  <!-- ================= SCREEN 1 ================= -->
+  <!-- ========== SCREEN 1 ========== -->
   <div id="screen1">
-
     <div class="screen-header">
       <div>week 7 assignment | midterm write up</div>
       <div>5 points possible</div>
     </div>
 
-    <div class="screen-subheader">due: tue Oct 21, 2025 11:59 pm</div>
+    <div class="screen-subheader">
+      due: tue Oct 21, 2025 11:59 pm
+    </div>
 
     <div class="status-row">
       <div class="status-circle">
+        <!-- 정확한 12→4시 각도 로딩 아이콘 -->
         <svg viewBox="0 0 50 50">
-          <path d="M25 5 A 20 20 0 1 1 12 12"
+          <path d="M25 5
+                   A 20 20 0 1 1 12 12"
                 fill="none"
+                stroke="#000"
                 stroke-width="4"
                 stroke-linecap="round"/>
         </svg>
       </div>
 
       <div>
-        <div>in progress</div>
+        <div class="status-text-top">in progress</div>
         <div>next up: submit assignment</div>
       </div>
     </div>
+
+    <div class="details-title">details</div>
 
     <div class="details-text">
       <p>harmonic collection entry midterm edit</p>
@@ -198,22 +224,20 @@
     </div>
 
     <button id="submitBtn" class="submit-btn">submit assignment</button>
-
   </div>
 
-  <!-- ================= SCREEN 2 ================= -->
+  <!-- ========== SCREEN 2 ========== -->
   <div id="screen2">
-
-    <div>media submission</div>
+    <div class="ms-title">media submission</div>
 
     <div class="ms-line"></div>
 
     <div class="ms-info-row">
-      <span>due</span>
+      <span class="label">due</span>
       <span>Oct 31 by 11:59pm</span>
-      <span>points</span>
+      <span class="label">points</span>
       <span>5</span>
-      <span>submitting</span>
+      <span class="label">submitting</span>
       <span>a file upload</span>
     </div>
 
@@ -225,21 +249,20 @@
       <p>write a short document to accompany your midterm.</p>
       <p>next class we’ll be doing presentations and group discussions of your midterms to get useful feedback.</p>
     </div>
-
   </div>
 
 </div>
 
-<!-- ================= TOAST ================= -->
+<!-- Toast Popup -->
 <div id="toast">
-  <div style="display:flex;align-items:center;gap:14px;">
+  <div class="toast-left">
     <div class="toast-check">✔</div>
     <span>assignment successfully submitted.</span>
   </div>
   <div class="toast-close" id="toastClose">✕</div>
 </div>
 
-<!-- ================= NEXT ARROW ================= -->
+<!-- NEXT ARROW -->
 <img id="nextArrow" src="data:image/svg+xml;utf8,
 <svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'>
 <path d='M5 12h14M13 5l7 7-7 7'/>
@@ -272,7 +295,5 @@
 
 </body>
 </html>
-
-
 
 
