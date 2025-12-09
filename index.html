@@ -45,8 +45,8 @@
       transition: background 0.2s;
     }
 
-    /* 기본 hover: 1~5 제외 */
-    .box:hover:not(.box1):not(.box2):not(.box3):not(.box4):not(.box5) {
+    /* 기본 hover (1~6 제외) */
+    .box:hover:not(.box1):not(.box2):not(.box3):not(.box4):not(.box5):not(.box6) {
       background: #f0f0f0;
     }
 
@@ -90,14 +90,24 @@
       background-color: #6fcb73;
     }
 
-    /* ✨ 5번 박스 — 새 스타일 */
+    /* ✨ 5번 박스 */
     .box5 {
-      border-color: #ffe983;     /* 텍스트/테두리 */
-      background-color: #e7643c; /* 배경색 */
+      border-color: #ffe983;
+      background-color: #e7643c;
       color: #ffe983;
     }
     .box5:hover {
-      background-color: #f07a52; /* hover 시 더 밝은 주황 */
+      background-color: #f07a52;
+    }
+
+    /* ✨ 6번 박스 — 새로 추가 */
+    .box6 {
+      border-color: #e23535;      /* 테두리 */
+      background-color: #f5b3d8;  /* 배경 */
+      color: #e23535;             /* 텍스트 */
+    }
+    .box6:hover {
+      background-color: #e89ec6;  /* hover 시 살짝 더 진한 핑크 */
     }
 
   </style>
@@ -115,11 +125,11 @@
     <a class="box box2" href="page3.html">2</a>
     <a class="box box3" href="page4.html">3</a>
     <a class="box box4" href="page5.html">4</a>
+    <a class0="box box5" href="page6.html">5</a>
 
-    <!-- ✨ 5번 박스 적용 -->
-    <a class="box box5" href="page6.html">5</a>
+    <!-- ✨ 6번 박스 적용 -->
+    <a class="box box6" href="page7.html">6</a>
 
-    <a class="box" href="page7.html">6</a>
     <a class="box" href="page8.html">7</a>
     <a class="box" href="page9.html">8</a>
     <a class="box" href="page10.html">9</a>
@@ -129,5 +139,6 @@
 
 </body>
 </html>
+
 
 
