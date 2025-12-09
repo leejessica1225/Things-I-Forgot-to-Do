@@ -34,10 +34,10 @@
       transition: background-color 0.15s, color 0.15s;
     }
 
-    /* 선택된 박스(옵션 클릭 후) */
+    /* 선택된 박스 */
     .dropdown.selected {
-      background-color: #9fc9ff; /* 연파랑 */
-      color: #4b2627;            /* 글자 진한 브라운 */
+      background-color: #9fc9ff;
+      color: #4b2627;
     }
 
     /* 위치 + z-index */
@@ -78,7 +78,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      pointer-events: none; /* 클릭 이벤트는 부모(.dropdown)에서 처리 */
+      pointer-events: none;
     }
 
     .dropdown-arrow {
@@ -110,7 +110,6 @@
       transition: background-color 0.15s, color 0.15s;
     }
 
-    /* hover 때 색 변하는 부분 */
     .dropdown-item:hover {
       background-color: #9fc9ff;
       color: #4b2627;
@@ -125,28 +124,45 @@
       transform: rotate(180deg);
     }
 
-    /* 🔥 오른쪽 하단 next 버튼 */
+    /* 🔥 오른쪽 하단 next 버튼 — 이미지 같은 얇고 미니멀한 화살표 */
     .next-page-btn {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      font-size: 45px;
-      color: #89c2ff;
+      width: 42px;
+      height: 42px;
       cursor: pointer;
       user-select: none;
       transition: 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .next-page-btn svg {
+      width: 42px;
+      height: 42px;
+      stroke: #89c2ff;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
     }
 
     .next-page-btn:hover {
-      color: white;
-      transform: scale(1.25);
+      transform: scale(1.20);
     }
   </style>
 </head>
 <body>
 
   <!-- 🔽 오른쪽 하단 화살표 버튼 -->
-  <div class="next-page-btn">➜</div>
+  <div class="next-page-btn">
+    <svg viewBox="0 0 24 24">
+      <path d="M5 12h14" />
+      <path d="M13 5l6 7-6 7" />
+    </svg>
+  </div>
 
   <div class="wrapper">
 
@@ -231,15 +247,12 @@
       const items = dropdown.querySelectorAll('.dropdown-item');
 
       dropdown.addEventListener('click', (e) => {
-        // 옵션 클릭이면 여기서는 처리하지 않음
         if (e.target.classList.contains('dropdown-item')) return;
 
-        // 다른 드롭다운은 모두 닫기
         document.querySelectorAll('.dropdown').forEach(d => {
           if (d !== dropdown) d.classList.remove('open');
         });
 
-        // 현재 것만 토글
         dropdown.classList.toggle('open');
       });
 
@@ -259,7 +272,7 @@
       }
     });
 
-    // 🔥 오른쪽 하단 버튼 → page3.html 이동
+    // 오른쪽 하단 화살표 → page3.html 이동
     document.querySelector('.next-page-btn').addEventListener('click', () => {
       window.location.href = "page3.html";
     });
@@ -267,6 +280,7 @@
 
 </body>
 </html>
+
 
 
 
