@@ -15,7 +15,6 @@
       color: #e23535;           /* 진한 빨강 */
     }
 
-    /* 화면 전환용 공통 뷰 */
     .view {
       position: absolute;
       inset: 0;
@@ -23,10 +22,8 @@
     }
 
     #listView {
-      display: block; /* 처음에 목록이 보이도록 */
+      display: block;
     }
-
-    /* ============= 목록 화면 스타일 ============= */
 
     .mail-list {
       width: 100%;
@@ -44,18 +41,15 @@
       cursor: default;
     }
 
-    /* hover 시 빨간색 배경 + 연핑크 글자 (모든 줄) */
     .mail-row:hover {
       background-color: #e23535;
       color: #ffe0f4;
     }
 
-    /* 메인 메일 줄은 클릭 가능 */
     .mail-row.mail-item {
       cursor: pointer;
     }
 
-    /* 체크박스, 별, 텍스트 정렬 */
     .mail-row-content {
       display: flex;
       align-items: center;
@@ -70,10 +64,7 @@
 
     .star-icon {
       font-size: 18px;
-      line-height: 1;
     }
-
-    /* ============= 본문 화면 스타일 ============= */
 
     #mailBodyView {
       position: absolute;
@@ -87,7 +78,6 @@
       padding: 40px 60px 20px 60px;
     }
 
-    /* 왼쪽 영역: 동그라미 + 이름 + to me */
     .left-info {
       display: flex;
       align-items: center;
@@ -124,7 +114,6 @@
       color: #e23535;
     }
 
-    /* 오른쪽 영역: 날짜 + 아이콘 */
     .right-info {
       display: flex;
       flex-direction: column;
@@ -145,13 +134,8 @@
       color: #e23535;
     }
 
-    .mail-icons .icon {
-      cursor: default;
-    }
-
-    /* 본문 텍스트 – sender-name 과 정렬 맞추기 위해 왼쪽 패딩 */
     .mail-content {
-      padding-left: 138px; /* 왼쪽 아이콘+이름 영역과 정렬 */
+      padding-left: 138px;
       padding-right: 60px;
       margin-top: 10px;
       font-size: 22px;
@@ -159,34 +143,42 @@
       color: #e23535;
     }
 
-    /* page8 로 가는 화살표 */
+    /* ---------------- SVG 화살표 스타일 ---------------- */
     .next-arrow {
       position: absolute;
       bottom: 40px;
       right: 40px;
-      font-size: 50px;
-      color: #e23535;
+      width: 42px;
+      height: 42px;
       cursor: pointer;
       transition: transform 0.2s;
+    }
+
+    .next-arrow svg {
+      width: 42px;
+      height: 42px;
+      stroke: #e23535;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
     }
 
     .next-arrow:hover {
       transform: scale(1.2);
     }
+
   </style>
 </head>
 <body>
 
-  <!-- ================== 목록 화면 ================== -->
   <div class="view" id="listView">
     <div class="mail-list">
-      <!-- 위에 비어 있는 줄들 -->
       <div class="mail-row"></div>
       <div class="mail-row"></div>
       <div class="mail-row"></div>
       <div class="mail-row"></div>
 
-      <!-- 실제 메일 줄 -->
       <div class="mail-row mail-item" id="openMail">
         <div class="mail-row-content">
           <div class="fake-checkbox"></div>
@@ -197,10 +189,8 @@
     </div>
   </div>
 
-  <!-- ================== 본문 화면 ================== -->
   <div class="view" id="mailBodyView">
     <div class="mail-body-header">
-      <!-- 왼쪽 정보 -->
       <div class="left-info">
         <div class="profile-circle">r</div>
         <div class="sender-block">
@@ -209,23 +199,18 @@
         </div>
       </div>
 
-      <!-- 오른쪽 정보 -->
       <div class="right-info">
-        <div class="mail-date">
-          Oct 24, 2025, 9:33AM (3 days ago)
-        </div>
+        <div class="mail-date">Oct 24, 2025, 9:33AM (3 days ago)</div>
         <div class="mail-icons">
-          <span class="icon">☆</span>
-          <span class="icon">↩</span>
-          <span class="icon">⋮</span>
+          <span>☆</span>
+          <span>↩</span>
+          <span>⋮</span>
         </div>
       </div>
     </div>
 
-    <!-- 메일 본문 -->
     <div class="mail-content">
       <p>Hello,</p>
-
       <p>
         You have received a package and it is waiting for you in the mail room of your
         residence hall. Mail room hours are posted in your building and at the mail room
@@ -233,29 +218,34 @@
         hours. If you have any questions regarding your packages, please go to your
         residence hall office.
       </p>
-
       <p>
         Best,<br><br>
         Housing and Residential Education Staff
       </p>
     </div>
 
-    <!-- page8 로 이동하는 화살표 -->
-    <div class="next-arrow" id="toPage8">➜</div>
+    <!-- 🔥 같은 스타일 SVG 화살표 -->
+    <div class="next-arrow" id="toPage8">
+      <svg viewBox="0 0 24 24">
+        <path d="M5 12h14"/>
+        <path d="M13 5l6 7-6 7"/>
+      </svg>
+    </div>
+
   </div>
 
   <script>
-    // "You have a package!" 줄 클릭하면 본문 화면으로 전환
     document.getElementById('openMail').addEventListener('click', () => {
       document.getElementById('listView').style.display = 'none';
       document.getElementById('mailBodyView').style.display = 'block';
     });
 
-    // 화살표 클릭 → page8.html 로 이동
     document.getElementById('toPage8').addEventListener('click', () => {
       window.location.href = 'page8.html';
     });
   </script>
+
 </body>
 </html>
+
 
