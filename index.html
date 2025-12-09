@@ -45,12 +45,12 @@
       transition: background 0.2s;
     }
 
-    /* 기본 hover (1~6 제외) */
+    /* 기본 hover (커스텀박스 제외) */
     .box:hover:not(.box1):not(.box2):not(.box3):not(.box4):not(.box5):not(.box6) {
       background: #f0f0f0;
     }
 
-    /* ✨ 1번 박스 */
+    /* 1번 */
     .box1 {
       border-color: #9fc9ff;
       background-color: #4b2627;
@@ -60,7 +60,7 @@
       background-color: #8a4c4d;
     }
 
-    /* ✨ 2번 박스 */
+    /* 2번 */
     .box2 {
       border-color: #fbe8d2;
       background-color: #f23b8f;
@@ -70,7 +70,7 @@
       background-color: #f56fb0;
     }
 
-    /* ✨ 3번 박스 */
+    /* 3번 */
     .box3 {
       border-color: #5a3b36;
       background-color: #e8a8c9;
@@ -80,7 +80,7 @@
       background-color: #d999b7;
     }
 
-    /* ✨ 4번 박스 */
+    /* 4번 */
     .box4 {
       border-color: #ff9ec3;
       background-color: #59b25c;
@@ -90,7 +90,7 @@
       background-color: #6fcb73;
     }
 
-    /* ✨ 5번 박스 */
+    /* 5번 (오타 때문에 안 먹었던 부분) */
     .box5 {
       border-color: #ffe983;
       background-color: #e7643c;
@@ -100,16 +100,15 @@
       background-color: #f07a52;
     }
 
-    /* ✨ 6번 박스 — 새로 추가 */
+    /* 6번 */
     .box6 {
-      border-color: #e23535;      /* 테두리 */
-      background-color: #f5b3d8;  /* 배경 */
-      color: #e23535;             /* 텍스트 */
+      border-color: #e23535;
+      background-color: #f5b3d8;
+      color: #e23535;
     }
     .box6:hover {
-      background-color: #e89ec6;  /* hover 시 살짝 더 진한 핑크 */
+      background-color: #e89ec6;
     }
-
   </style>
 </head>
 
@@ -125,9 +124,10 @@
     <a class="box box2" href="page3.html">2</a>
     <a class="box box3" href="page4.html">3</a>
     <a class="box box4" href="page5.html">4</a>
-    <a class0="box box5" href="page6.html">5</a>
 
-    <!-- ✨ 6번 박스 적용 -->
+    <!-- ✨ 오타 고쳐줌 (class0 → class) -->
+    <a class="box box5" href="page6.html">5</a>
+
     <a class="box box6" href="page7.html">6</a>
 
     <a class="box" href="page8.html">7</a>
