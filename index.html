@@ -15,7 +15,6 @@
       margin: 0;
     }
 
-    /* 밑줄 제거 + 기본 링크 색 검정 */
     a {
       text-decoration: none;
       color: black;
@@ -46,34 +45,41 @@
       transition: background 0.2s;
     }
 
-    /* 기본 hover (1번, 2번 제외) */
-    .box:hover:not(.box1):not(.box2) {
+    /* 기본 hover (1번, 2번, 3번 제외) */
+    .box:hover:not(.box1):not(.box2):not(.box3) {
       background: #f0f0f0;
     }
 
-    /* ✨ 1번 박스 (하늘색 테마) */
+    /* ✨ 1번 박스 */
     .box1 {
       border-color: #9fc9ff;
       background-color: #4b2627;
       color: #9fc9ff;
     }
-
-    /* 1번 hover — 2번 hover와 밝아지는 정도 맞춤 */
     .box1:hover {
       background-color: #8a4c4d;
     }
 
-    /* ✨ 2번 박스 (아이보리 + 핫핑크 테마) */
+    /* ✨ 2번 박스 */
     .box2 {
       border-color: #fbe8d2;
       background-color: #f23b8f;
       color: #fbe8d2;
     }
-
-    /* 2번 hover — 더 밝은 핑크 */
     .box2:hover {
       background-color: #f56fb0;
     }
+
+    /* ✨ 3번 박스 — 새로 추가 */
+    .box3 {
+      border-color: #5a3b36;
+      background-color: #e8a8c9;
+      color: #5a3b36;
+    }
+    .box3:hover {
+      background-color: #d999b7;
+    }
+
   </style>
 </head>
 
@@ -85,14 +91,12 @@
 
   <div class="grid">
 
-    <!-- 1번 박스 -->
     <a class="box box1" href="page2.html?screen=1">1</a>
-
-    <!-- 2번 박스 -->
     <a class="box box2" href="page3.html">2</a>
 
-    <!-- 나머지 박스 -->
-    <a class="box" href="page4.html">3</a>
+    <!-- ✨ 3번 박스 스타일 적용 -->
+    <a class="box box3" href="page4.html">3</a>
+
     <a class="box" href="page5.html">4</a>
     <a class="box" href="page6.html">5</a>
     <a class="box" href="page7.html">6</a>
