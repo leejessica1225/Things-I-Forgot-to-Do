@@ -20,7 +20,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* 화면 정중앙 */
+    transform: translate(-50%, -50%);
     width: 70%;
   }
 
@@ -55,16 +55,38 @@
     display: block;
   }
 
-  /* 오른쪽 아래 이동 화살표 */
+  /* 오른쪽 아래 SVG 화살표 */
   .next-arrow {
     position: fixed;
     bottom: 25px;
     right: 35px;
-    font-size: 52px;
-    color: #5a3b36;
+    width: 42px;
+    height: 42px;
     cursor: pointer;
     user-select: none;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .next-arrow svg {
+    width: 42px;
+    height: 42px;
+    stroke: #5a3b36;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  .next-arrow:hover {
+    transform: scale(1.15);
+  }
+
+  .next-arrow:active {
+    transform: scale(0.9);
+    opacity: 0.75;
   }
 </style>
 </head>
@@ -103,7 +125,12 @@
 
 </div>
 
-<a href="page5.html" class="next-arrow">→</a>
+<a href="page5.html" class="next-arrow">
+  <svg viewBox="0 0 24 24">
+    <path d="M5 12h14" />
+    <path d="M13 5l6 7-6 7" />
+  </svg>
+</a>
 
 <script>
   document.querySelectorAll(".checkbox").forEach(box => {
@@ -115,4 +142,5 @@
 
 </body>
 </html>
+
 
