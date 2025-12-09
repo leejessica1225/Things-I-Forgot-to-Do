@@ -15,6 +15,7 @@
       margin: 0;
     }
 
+    /* 밑줄 제거 + 기본 링크 색 검정 */
     a {
       text-decoration: none;
       color: black;
@@ -50,25 +51,26 @@
       background: #f0f0f0;
     }
 
-    /* ✨ 1번 박스 */
+    /* ✨ 1번 박스 (하늘색 테마) */
     .box1 {
       border-color: #9fc9ff;
       background-color: #4b2627;
       color: #9fc9ff;
     }
 
+    /* 1번 hover — 2번 hover와 밝아지는 정도 맞춤 */
     .box1:hover {
-      background-color: #6d3a3b;
+      background-color: #8a4c4d;
     }
 
-    /* ✨ 2번 박스 (핫핑크 + 아이보리 스타일) */
+    /* ✨ 2번 박스 (아이보리 + 핫핑크 테마) */
     .box2 {
       border-color: #fbe8d2;
       background-color: #f23b8f;
       color: #fbe8d2;
     }
 
-    /* hover 시 → 더 연한 핑크 */
+    /* 2번 hover — 더 밝은 핑크 */
     .box2:hover {
       background-color: #f56fb0;
     }
@@ -83,11 +85,13 @@
 
   <div class="grid">
 
+    <!-- 1번 박스 -->
     <a class="box box1" href="page2.html?screen=1">1</a>
 
-    <!-- ✨ 2번 박스 스타일 적용 -->
+    <!-- 2번 박스 -->
     <a class="box box2" href="page3.html">2</a>
 
+    <!-- 나머지 박스 -->
     <a class="box" href="page4.html">3</a>
     <a class="box" href="page5.html">4</a>
     <a class="box" href="page6.html">5</a>
@@ -98,10 +102,6 @@
     <a class="box" href="page11.html">10</a>
 
   </div>
-
-</body>
-</html>
-
 
 </body>
 </html>
